@@ -1,0 +1,2809 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>SmartCard Operations - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SmartCard Operations";
+        var mkdocs_page_input_path = "api/operators/cards.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Operators</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">SmartCard Operations</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.operators.CardOperator">CardOperator</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.active">active</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.reset">reset</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_name">set_name</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_key_url">set_key_url</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.get_key_from_url">get_key_from_url</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_language">set_language</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_salutation">set_salutation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_forced_sig">set_forced_sig</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.generate_key">generate_key</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.change_pin">change_pin</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.unblock_pin_as_admin">unblock_pin_as_admin</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.unblock_pin">unblock_pin</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.change_admin_pin">change_admin_pin</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.change_reset_code">change_reset_code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.CardOperator.set_usage_info">set_usage_info</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+          <li class="breadcrumb-item">Operators</li>
+      <li class="breadcrumb-item active">SmartCard Operations</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="card-operator">Card Operator</h1>
+<hr />
+<p>The CardOperator handles operations involving smartcards (YubiKeys, etc).</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.operators.CardOperator" class="doc doc-heading">
+          <code>CardOperator</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.operators.common.BaseOperator">BaseOperator</span></code></p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class CardOperator(BaseOperator):
+
+    def __init__(self, gpg: Any, interactive: StatusInteractive) -&gt; None:
+        super().__init__(gpg)
+        self.interactive = interactive
+
+    def debug(self):
+        for i in self.interactive.readlines(yield_empty=False):
+            print(i)
+
+    @property
+    def active(self) -&gt; SmartCard | None:
+        """Gets information about the current card.
+
+        Returns:
+            SmartCard | None: Card data, or None if no card is present.
+        """
+        result = self.session.run("gpg --with-colons --card-status")
+        if result.code == 0:
+            return SmartCard.from_status(result.output)
+        else:
+            return None
+
+    def reset(self) -&gt; SmartCard:
+        """Resets the active card to factory settings.
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Reset card instance
+        """
+        self.interactive.writelines("factory-reset")
+        entered = False
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                lines.append(line.content)
+
+                if (
+                    cmd == StatusCodes.GET_BOOL
+                    and arg == "cardedit.factory-reset.proceed"
+                ):
+                    self.interactive.writelines("y")
+
+                elif cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.factory-reset.really":
+                        self.interactive.writelines("yes")
+                        success = True
+                    elif arg == "cardedit.prompt":
+                        if entered:
+                            if success:
+                                return self.active
+                            else:
+                                raise ExecutionError("\n".join(lines))
+                        else:
+                            entered = True
+
+    def set_name(
+        self, first_name: str, last_name: str, admin_pin: str = "12345678"
+    ) -&gt; SmartCard:
+        """Sets the name of the cardholder
+
+        Args:
+            first_name (str): First Name
+            last_name (str): Last Name
+            admin_pin (str, optional): Admin PIN of card. Defaults to "12345678".
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated SmartCard
+        """
+        self.interactive.writelines("name")
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "keygen.smartcard.surname":
+                        self.interactive.writelines(last_name)
+                    elif arg == "keygen.smartcard.givenname":
+                        self.interactive.writelines(first_name)
+                    elif arg == "cardedit.prompt":
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                    else:
+                        self.interactive.writelines("")
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    self.interactive.writelines(admin_pin)
+                elif cmd == StatusCodes.SC_OP_SUCCESS:
+                    success = True
+
+    def set_key_url(self, url: str | None, admin_pin: str = "12345678") -&gt; SmartCard:
+        """Sets the URL of the current card's public key.
+
+        Args:
+            url (str | None): URL, or None to unset
+            admin_pin (str, optional): Card admin PIN. Defaults to "12345678".
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card instance
+        """
+        self.interactive.writelines("url")
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.change_url":
+                        self.interactive.writelines(url if url else "UNSET")
+                    else:
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    self.interactive.writelines(admin_pin)
+                elif cmd == StatusCodes.SC_OP_SUCCESS:
+                    success = True
+
+    def get_key_from_url(self) -&gt; list[FetchedKeyResult] | None:
+        """Gets the key information from the card's URL, returning None if not present.
+
+        Returns:
+            list[FetchedKeyResult] | None: List of results, or None if not present.
+        """
+        if not self.active.public_key_url or self.active.public_key_url == "UNSET":
+            return None
+
+        self.interactive.writelines("fetch")
+        results: list[FetchedKeyResult] = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status and line.code == StatusCodes.IMPORTED:
+                results.append(
+                    {
+                        "id": line.arguments[0],
+                        "first_name": (
+                            line.arguments[1] if len(line.arguments) &gt; 1 else ""
+                        ),
+                        "last_name": (
+                            line.arguments[2] if len(line.arguments) &gt; 2 else ""
+                        ),
+                        "extras": (
+                            " ".join(line.arguments[3:])
+                            if len(line.arguments) &gt; 3
+                            else ""
+                        ),
+                    }
+                )
+            elif line.code == StatusCodes.GET_LINE:
+                return results
+
+    def set_login(self, login: str, admin_pin: str = "12345678") -&gt; SmartCard:
+        self.interactive.writelines("login")
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.change_login":
+                        self.interactive.writelines(login)
+                    else:
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    self.interactive.writelines(admin_pin)
+                elif cmd == StatusCodes.SC_OP_SUCCESS:
+                    success = True
+
+    def set_language(self, *languages: str, admin_pin: str = "12345678") -&gt; SmartCard:
+        """Set language preferences
+
+        Args:
+            *languages (str): 1-4 ISO-639 language codes.
+            admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+        Raises:
+            ValueError: If specified arguments are invalid.
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        if len(languages) == 0:
+            raise ValueError("At least one language must be specified.")
+        if len(languages) &gt; 4:
+            raise ValueError("At most 4 languages must be specified.")
+        if any([len(i) != 2 for i in languages]):
+            raise ValueError(
+                "All language entries must be 2-byte ISO-639 language codes."
+            )
+
+        self.interactive.writelines("lang")
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.change_lang":
+                        self.interactive.writelines("".join(languages))
+                    else:
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    self.interactive.writelines(admin_pin)
+                elif cmd == StatusCodes.SC_OP_SUCCESS:
+                    success = True
+
+    def set_salutation(
+        self,
+        salutation: Literal["male", "female"] | None = None,
+        admin_pin: str = "12345678",
+    ) -&gt; SmartCard:
+        """Sets the cardholder's salutation preferences.
+
+        Args:
+            salutation ('male' | 'female' | None, optional): Saltuation mode, or unset if None. Defaults to None.
+            admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated smartcard
+        """
+        self.interactive.writelines("salutation")
+        success = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.change_sex":
+                        self.interactive.writelines(
+                            ("M" if salutation == "male" else "F")
+                            if salutation
+                            else " "
+                        )
+                    else:
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    self.interactive.writelines(admin_pin)
+                elif cmd == StatusCodes.SC_OP_SUCCESS:
+                    success = True
+
+    def set_forced_sig(self, value: bool, admin_pin: str = "12345678") -&gt; SmartCard:
+        """Set forced signature mode
+
+        Args:
+            value (bool): What value to set to
+            admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+        Returns:
+            SmartCard: Updated smartcard
+        """
+        current = self.active
+        if current.forced_signature_pin == value:
+            return current
+
+        self.interactive.writelines("forcesig")
+        line = self.interactive.wait_for_status(
+            StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+        )[-1]
+        if line.code == StatusCodes.GET_HIDDEN:
+            self.interactive.writelines(admin_pin)
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        return self.active
+
+    def generate_key(
+        self,
+        real_name: str,
+        email: str | None = None,
+        comment: str | None = None,
+        expires: str | None = None,
+        backup: bool = False,
+        card_pin: str = "123456",
+        admin_pin: str = "12345678",
+        key_passphrase: str | None = None,
+        force: bool = False,
+    ) -&gt; SmartCard:
+        """Generates a key on the smartcard, optionally backing up to the local machine.
+
+        Args:
+            real_name (str): UID name
+            email (str | None, optional): UID email. Defaults to None.
+            comment (str | None, optional): UID comment. Defaults to None.
+            expires (str | None, optional): Expiration time (None for no expiration, `n` for n days, `nW` for n weeks, etc). Defaults to None.
+            backup (bool, optional): Whether to backup to the local machine. Defaults to False.
+            card_pin (str, optional): Card PIN. Defaults to "123456".
+            admin_pin (str, optional): Card Admin PIN. Defaults to "12345678".
+            key_passphrase (str | None, optional): The passphrase for the local backup key. Defaults to None.
+            force (bool, optional): Whether to replace existing keys. Defaults to False.
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("generate")
+        success = False
+        pinentered = False
+        admentered = False
+        lines = []
+        for line in self.interactive.readlines(yield_empty=False):
+            if line.is_status:
+                lines.append(line.content)
+                cmd = line.code
+                arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+                if cmd == StatusCodes.GET_LINE:
+                    if arg == "cardedit.genkeys.backup_enc":
+                        self.interactive.writelines("y" if backup else "n")
+                    elif arg == "keygen.valid":
+                        self.interactive.writelines(expires if expires else "0")
+                    elif arg == "keygen.name":
+                        self.interactive.writelines(real_name)
+                    elif arg == "keygen.email":
+                        self.interactive.writelines(email if email else "")
+                    elif arg == "keygen.comment":
+                        self.interactive.writelines(comment if comment else "")
+                    elif arg == "cardedit.prompt":
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+
+                elif cmd == StatusCodes.GET_HIDDEN:
+                    if arg == "passphrase.enter":
+                        if pinentered:
+                            if admentered:
+                                if backup:
+                                    self.interactive.writelines(
+                                        key_passphrase if key_passphrase else ""
+                                    )
+
+                            else:
+                                self.interactive.writelines(admin_pin)
+                                admentered = True
+                        else:
+                            self.interactive.writelines(card_pin)
+                            pinentered = True
+
+                elif (
+                    cmd == StatusCodes.GET_BOOL
+                    and arg == "cardedit.genkeys.replace_keys"
+                ):
+                    self.interactive.writelines("y" if force else "n")
+
+                elif cmd == StatusCodes.KEY_CREATED:
+                    success = True
+
+    def change_pin(self, current_pin: str, new_pin: str) -&gt; SmartCard:
+        """Change the user PIN of the key
+
+        Args:
+            current_pin (str): Current user PIN
+            new_pin (str): New user PIN
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("passwd")
+        line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+        if line.arguments[0] == "cardutil.change_pin.menu":
+            self.interactive.writelines("1", current_pin, new_pin, new_pin)
+        else:
+            raise ExecutionError("Failed to change PIN")
+
+        line = self.interactive.wait_for_status(
+            StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        if line.code == StatusCodes.SC_OP_SUCCESS:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            return self.active
+        else:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            raise ExecutionError("Failed to change PIN")
+
+    def unblock_pin_as_admin(self, admin_pin: str, new_pin: str) -&gt; SmartCard:
+        """Unblock a user PIN with the admin PIN
+
+        Args:
+            admin_pin (str): Admin PIN
+            new_pin (str): New user PIN
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("passwd")
+        line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+        if line.arguments[0] == "cardutil.change_pin.menu":
+            self.interactive.writelines("2", admin_pin, new_pin, new_pin)
+        else:
+            raise ExecutionError("Failed to unblock PIN")
+
+        line = self.interactive.wait_for_status(
+            StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        if line.code == StatusCodes.SC_OP_SUCCESS:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            return self.active
+        else:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            raise ExecutionError("Failed to unblock PIN")
+
+    def unblock_pin(self, reset_code: str, new_pin: str) -&gt; SmartCard:
+        """Unblock the user PIN with a reset code.
+
+        Args:
+            reset_code (str): Reset code
+            new_pin (str): New user PIN
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("unblock")
+        line = self.interactive.wait_for_status(
+            StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+        )[-1]
+        if line.code == StatusCodes.GET_LINE:
+            raise ExecutionError("Reset code is unavailable or otherwise inaccessible.")
+
+        self.interactive.writelines(reset_code, new_pin, new_pin)
+        line = self.interactive.wait_for_status(
+            StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        if line.code == StatusCodes.SC_OP_SUCCESS:
+            return self.active
+        else:
+            raise ExecutionError("Failed to unblock PIN")
+
+    def change_admin_pin(self, current_pin: str, new_pin: str) -&gt; SmartCard:
+        """Change the admin PIN
+
+        Args:
+            current_pin (str): Current admin PIN
+            new_pin (str): New admin PIN
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("passwd")
+        line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+        if line.arguments[0] == "cardutil.change_pin.menu":
+            self.interactive.writelines("3", current_pin, new_pin, new_pin)
+        else:
+            raise ExecutionError("Failed to change Admin PIN")
+
+        line = self.interactive.wait_for_status(
+            StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        if line.code == StatusCodes.SC_OP_SUCCESS:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            return self.active
+        else:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            raise ExecutionError("Failed to change Admin PIN")
+
+    def change_reset_code(self, admin_pin: str, reset_code: str) -&gt; SmartCard:
+        """Changes the card's reset code
+
+        Args:
+            admin_pin (str): Admin PIN
+            reset_code (str): New reset code
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        self.interactive.writelines("passwd")
+        line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+        if line.arguments[0] == "cardutil.change_pin.menu":
+            self.interactive.writelines("4", admin_pin, reset_code, reset_code)
+        else:
+            raise ExecutionError("Failed to change reset code")
+
+        line = self.interactive.wait_for_status(
+            StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        if line.code == StatusCodes.SC_OP_SUCCESS:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            return self.active
+        else:
+            self.interactive.writelines("Q")
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            raise ExecutionError("Failed to change reset code")
+
+    def set_usage_info(
+        self, type: Literal["sign", "decrypt", "auth"], value: bool, admin_pin: str
+    ) -&gt; SmartCard:
+        """Sets card UIF data
+
+        Args:
+            type (sign | decrypt | auth): Which UIF flag to set
+            value (bool): What value to set it to
+            admin_pin (str): Card admin PIN
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            SmartCard: Updated card
+        """
+        indexMap = {"sign": 1, "decrypt": 2, "auth": 3}
+        self.interactive.writelines(f"uif {indexMap[type]} {'on' if value else 'off'}")
+        line = self.interactive.wait_for_status(
+            StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+        )[-1]
+        if line.code == StatusCodes.GET_LINE:
+            raise ExecutionError("Input is invalid.")
+
+        self.interactive.writelines(admin_pin)
+        line = self.interactive.wait_for_status(
+            StatusCodes.GET_LINE, StatusCodes.SC_OP_FAILURE
+        )[-1]
+        if line.code == StatusCodes.GET_LINE:
+            return self.active
+        else:
+            self.interactive.wait_for_status(StatusCodes.GET_LINE)
+            raise ExecutionError("Incorrect PIN")</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.operators.CardOperator.active" class="doc doc-heading">
+          <code class="highlight language-python">active: SmartCard | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets information about the current card.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>SmartCard | None: Card data, or None if no card is present.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.reset" class="doc doc-heading">
+          <code class="highlight language-python">reset()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Resets the active card to factory settings.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Reset card instance</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def reset(self) -&gt; SmartCard:
+    """Resets the active card to factory settings.
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Reset card instance
+    """
+    self.interactive.writelines("factory-reset")
+    entered = False
+    success = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            lines.append(line.content)
+
+            if (
+                cmd == StatusCodes.GET_BOOL
+                and arg == "cardedit.factory-reset.proceed"
+            ):
+                self.interactive.writelines("y")
+
+            elif cmd == StatusCodes.GET_LINE:
+                if arg == "cardedit.factory-reset.really":
+                    self.interactive.writelines("yes")
+                    success = True
+                elif arg == "cardedit.prompt":
+                    if entered:
+                        if success:
+                            return self.active
+                        else:
+                            raise ExecutionError("\n".join(lines))
+                    else:
+                        entered = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_name" class="doc doc-heading">
+          <code class="highlight language-python">set_name(first_name, last_name, admin_pin='12345678')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the name of the cardholder</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>first_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>First Name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>last_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Last Name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN of card. Defaults to "12345678".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated SmartCard</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_name(
+    self, first_name: str, last_name: str, admin_pin: str = "12345678"
+) -&gt; SmartCard:
+    """Sets the name of the cardholder
+
+    Args:
+        first_name (str): First Name
+        last_name (str): Last Name
+        admin_pin (str, optional): Admin PIN of card. Defaults to "12345678".
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated SmartCard
+    """
+    self.interactive.writelines("name")
+    success = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            lines.append(line.content)
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            if cmd == StatusCodes.GET_LINE:
+                if arg == "keygen.smartcard.surname":
+                    self.interactive.writelines(last_name)
+                elif arg == "keygen.smartcard.givenname":
+                    self.interactive.writelines(first_name)
+                elif arg == "cardedit.prompt":
+                    if success:
+                        return self.active
+                    else:
+                        raise ExecutionError("\n".join(lines))
+                else:
+                    self.interactive.writelines("")
+            elif cmd == StatusCodes.GET_HIDDEN:
+                self.interactive.writelines(admin_pin)
+            elif cmd == StatusCodes.SC_OP_SUCCESS:
+                success = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_key_url" class="doc doc-heading">
+          <code class="highlight language-python">set_key_url(url, admin_pin='12345678')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the URL of the current card's public key.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>url</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>URL, or None to unset</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Card admin PIN. Defaults to "12345678".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card instance</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_key_url(self, url: str | None, admin_pin: str = "12345678") -&gt; SmartCard:
+    """Sets the URL of the current card's public key.
+
+    Args:
+        url (str | None): URL, or None to unset
+        admin_pin (str, optional): Card admin PIN. Defaults to "12345678".
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card instance
+    """
+    self.interactive.writelines("url")
+    success = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            lines.append(line.content)
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            if cmd == StatusCodes.GET_LINE:
+                if arg == "cardedit.change_url":
+                    self.interactive.writelines(url if url else "UNSET")
+                else:
+                    if success:
+                        return self.active
+                    else:
+                        raise ExecutionError("\n".join(lines))
+            elif cmd == StatusCodes.GET_HIDDEN:
+                self.interactive.writelines(admin_pin)
+            elif cmd == StatusCodes.SC_OP_SUCCESS:
+                success = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.get_key_from_url" class="doc doc-heading">
+          <code class="highlight language-python">get_key_from_url()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets the key information from the card's URL, returning None if not present.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<span title="gpyg.operators.card.FetchedKeyResult">FetchedKeyResult</span>] | None</code>
+            –
+            <div class="doc-md-description">
+              <p>list[FetchedKeyResult] | None: List of results, or None if not present.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def get_key_from_url(self) -&gt; list[FetchedKeyResult] | None:
+    """Gets the key information from the card's URL, returning None if not present.
+
+    Returns:
+        list[FetchedKeyResult] | None: List of results, or None if not present.
+    """
+    if not self.active.public_key_url or self.active.public_key_url == "UNSET":
+        return None
+
+    self.interactive.writelines("fetch")
+    results: list[FetchedKeyResult] = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status and line.code == StatusCodes.IMPORTED:
+            results.append(
+                {
+                    "id": line.arguments[0],
+                    "first_name": (
+                        line.arguments[1] if len(line.arguments) &gt; 1 else ""
+                    ),
+                    "last_name": (
+                        line.arguments[2] if len(line.arguments) &gt; 2 else ""
+                    ),
+                    "extras": (
+                        " ".join(line.arguments[3:])
+                        if len(line.arguments) &gt; 3
+                        else ""
+                    ),
+                }
+            )
+        elif line.code == StatusCodes.GET_LINE:
+            return results</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_language" class="doc doc-heading">
+          <code class="highlight language-python">set_language(*languages, admin_pin='12345678')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Set language preferences</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>*languages</code></b>
+                  (<code>str</code>, default:
+                      <code>()</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>1-4 ISO-639 language codes.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN. Defaults to "12345678".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>ValueError</code>
+              –
+              <div class="doc-md-description">
+                <p>If specified arguments are invalid.</p>
+              </div>
+            </li>
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_language(self, *languages: str, admin_pin: str = "12345678") -&gt; SmartCard:
+    """Set language preferences
+
+    Args:
+        *languages (str): 1-4 ISO-639 language codes.
+        admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+    Raises:
+        ValueError: If specified arguments are invalid.
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    if len(languages) == 0:
+        raise ValueError("At least one language must be specified.")
+    if len(languages) &gt; 4:
+        raise ValueError("At most 4 languages must be specified.")
+    if any([len(i) != 2 for i in languages]):
+        raise ValueError(
+            "All language entries must be 2-byte ISO-639 language codes."
+        )
+
+    self.interactive.writelines("lang")
+    success = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            lines.append(line.content)
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            if cmd == StatusCodes.GET_LINE:
+                if arg == "cardedit.change_lang":
+                    self.interactive.writelines("".join(languages))
+                else:
+                    if success:
+                        return self.active
+                    else:
+                        raise ExecutionError("\n".join(lines))
+            elif cmd == StatusCodes.GET_HIDDEN:
+                self.interactive.writelines(admin_pin)
+            elif cmd == StatusCodes.SC_OP_SUCCESS:
+                success = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_salutation" class="doc doc-heading">
+          <code class="highlight language-python">set_salutation(salutation=None, admin_pin='12345678')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the cardholder's salutation preferences.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>salutation</code></b>
+                  (<code>male | female | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Saltuation mode, or unset if None. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN. Defaults to "12345678".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated smartcard</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_salutation(
+    self,
+    salutation: Literal["male", "female"] | None = None,
+    admin_pin: str = "12345678",
+) -&gt; SmartCard:
+    """Sets the cardholder's salutation preferences.
+
+    Args:
+        salutation ('male' | 'female' | None, optional): Saltuation mode, or unset if None. Defaults to None.
+        admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated smartcard
+    """
+    self.interactive.writelines("salutation")
+    success = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            lines.append(line.content)
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            if cmd == StatusCodes.GET_LINE:
+                if arg == "cardedit.change_sex":
+                    self.interactive.writelines(
+                        ("M" if salutation == "male" else "F")
+                        if salutation
+                        else " "
+                    )
+                else:
+                    if success:
+                        return self.active
+                    else:
+                        raise ExecutionError("\n".join(lines))
+            elif cmd == StatusCodes.GET_HIDDEN:
+                self.interactive.writelines(admin_pin)
+            elif cmd == StatusCodes.SC_OP_SUCCESS:
+                success = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_forced_sig" class="doc doc-heading">
+          <code class="highlight language-python">set_forced_sig(value, admin_pin='12345678')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Set forced signature mode</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>value</code></b>
+                  (<code>bool</code>)
+              –
+              <div class="doc-md-description">
+                <p>What value to set to</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN. Defaults to "12345678".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated smartcard</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_forced_sig(self, value: bool, admin_pin: str = "12345678") -&gt; SmartCard:
+    """Set forced signature mode
+
+    Args:
+        value (bool): What value to set to
+        admin_pin (str, optional): Admin PIN. Defaults to "12345678".
+
+    Returns:
+        SmartCard: Updated smartcard
+    """
+    current = self.active
+    if current.forced_signature_pin == value:
+        return current
+
+    self.interactive.writelines("forcesig")
+    line = self.interactive.wait_for_status(
+        StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+    )[-1]
+    if line.code == StatusCodes.GET_HIDDEN:
+        self.interactive.writelines(admin_pin)
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    return self.active</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.generate_key" class="doc doc-heading">
+          <code class="highlight language-python">generate_key(real_name, email=None, comment=None, expires=None, backup=False, card_pin='123456', admin_pin='12345678', key_passphrase=None, force=False)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Generates a key on the smartcard, optionally backing up to the local machine.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>real_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>email</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>UID email. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>UID comment. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>expires</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Expiration time (None for no expiration, <code>n</code> for n days, <code>nW</code> for n weeks, etc). Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>backup</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to backup to the local machine. Defaults to False.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>card_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;123456&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Card PIN. Defaults to "123456".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;12345678&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Card Admin PIN. Defaults to "12345678".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key_passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The passphrase for the local backup key. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>force</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to replace existing keys. Defaults to False.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def generate_key(
+    self,
+    real_name: str,
+    email: str | None = None,
+    comment: str | None = None,
+    expires: str | None = None,
+    backup: bool = False,
+    card_pin: str = "123456",
+    admin_pin: str = "12345678",
+    key_passphrase: str | None = None,
+    force: bool = False,
+) -&gt; SmartCard:
+    """Generates a key on the smartcard, optionally backing up to the local machine.
+
+    Args:
+        real_name (str): UID name
+        email (str | None, optional): UID email. Defaults to None.
+        comment (str | None, optional): UID comment. Defaults to None.
+        expires (str | None, optional): Expiration time (None for no expiration, `n` for n days, `nW` for n weeks, etc). Defaults to None.
+        backup (bool, optional): Whether to backup to the local machine. Defaults to False.
+        card_pin (str, optional): Card PIN. Defaults to "123456".
+        admin_pin (str, optional): Card Admin PIN. Defaults to "12345678".
+        key_passphrase (str | None, optional): The passphrase for the local backup key. Defaults to None.
+        force (bool, optional): Whether to replace existing keys. Defaults to False.
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("generate")
+    success = False
+    pinentered = False
+    admentered = False
+    lines = []
+    for line in self.interactive.readlines(yield_empty=False):
+        if line.is_status:
+            lines.append(line.content)
+            cmd = line.code
+            arg = line.arguments[0] if len(line.arguments) &gt; 0 else None
+            if cmd == StatusCodes.GET_LINE:
+                if arg == "cardedit.genkeys.backup_enc":
+                    self.interactive.writelines("y" if backup else "n")
+                elif arg == "keygen.valid":
+                    self.interactive.writelines(expires if expires else "0")
+                elif arg == "keygen.name":
+                    self.interactive.writelines(real_name)
+                elif arg == "keygen.email":
+                    self.interactive.writelines(email if email else "")
+                elif arg == "keygen.comment":
+                    self.interactive.writelines(comment if comment else "")
+                elif arg == "cardedit.prompt":
+                    if success:
+                        return self.active
+                    else:
+                        raise ExecutionError("\n".join(lines))
+
+            elif cmd == StatusCodes.GET_HIDDEN:
+                if arg == "passphrase.enter":
+                    if pinentered:
+                        if admentered:
+                            if backup:
+                                self.interactive.writelines(
+                                    key_passphrase if key_passphrase else ""
+                                )
+
+                        else:
+                            self.interactive.writelines(admin_pin)
+                            admentered = True
+                    else:
+                        self.interactive.writelines(card_pin)
+                        pinentered = True
+
+            elif (
+                cmd == StatusCodes.GET_BOOL
+                and arg == "cardedit.genkeys.replace_keys"
+            ):
+                self.interactive.writelines("y" if force else "n")
+
+            elif cmd == StatusCodes.KEY_CREATED:
+                success = True</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.change_pin" class="doc doc-heading">
+          <code class="highlight language-python">change_pin(current_pin, new_pin)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Change the user PIN of the key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>current_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Current user PIN</p>
+              </div>
+            </li>
+            <li>
+              <b><code>new_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>New user PIN</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def change_pin(self, current_pin: str, new_pin: str) -&gt; SmartCard:
+    """Change the user PIN of the key
+
+    Args:
+        current_pin (str): Current user PIN
+        new_pin (str): New user PIN
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("passwd")
+    line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+    if line.arguments[0] == "cardutil.change_pin.menu":
+        self.interactive.writelines("1", current_pin, new_pin, new_pin)
+    else:
+        raise ExecutionError("Failed to change PIN")
+
+    line = self.interactive.wait_for_status(
+        StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    if line.code == StatusCodes.SC_OP_SUCCESS:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        return self.active
+    else:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        raise ExecutionError("Failed to change PIN")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.unblock_pin_as_admin" class="doc doc-heading">
+          <code class="highlight language-python">unblock_pin_as_admin(admin_pin, new_pin)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Unblock a user PIN with the admin PIN</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN</p>
+              </div>
+            </li>
+            <li>
+              <b><code>new_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>New user PIN</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def unblock_pin_as_admin(self, admin_pin: str, new_pin: str) -&gt; SmartCard:
+    """Unblock a user PIN with the admin PIN
+
+    Args:
+        admin_pin (str): Admin PIN
+        new_pin (str): New user PIN
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("passwd")
+    line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+    if line.arguments[0] == "cardutil.change_pin.menu":
+        self.interactive.writelines("2", admin_pin, new_pin, new_pin)
+    else:
+        raise ExecutionError("Failed to unblock PIN")
+
+    line = self.interactive.wait_for_status(
+        StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    if line.code == StatusCodes.SC_OP_SUCCESS:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        return self.active
+    else:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        raise ExecutionError("Failed to unblock PIN")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.unblock_pin" class="doc doc-heading">
+          <code class="highlight language-python">unblock_pin(reset_code, new_pin)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Unblock the user PIN with a reset code.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>reset_code</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Reset code</p>
+              </div>
+            </li>
+            <li>
+              <b><code>new_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>New user PIN</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def unblock_pin(self, reset_code: str, new_pin: str) -&gt; SmartCard:
+    """Unblock the user PIN with a reset code.
+
+    Args:
+        reset_code (str): Reset code
+        new_pin (str): New user PIN
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("unblock")
+    line = self.interactive.wait_for_status(
+        StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+    )[-1]
+    if line.code == StatusCodes.GET_LINE:
+        raise ExecutionError("Reset code is unavailable or otherwise inaccessible.")
+
+    self.interactive.writelines(reset_code, new_pin, new_pin)
+    line = self.interactive.wait_for_status(
+        StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    if line.code == StatusCodes.SC_OP_SUCCESS:
+        return self.active
+    else:
+        raise ExecutionError("Failed to unblock PIN")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.change_admin_pin" class="doc doc-heading">
+          <code class="highlight language-python">change_admin_pin(current_pin, new_pin)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Change the admin PIN</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>current_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Current admin PIN</p>
+              </div>
+            </li>
+            <li>
+              <b><code>new_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>New admin PIN</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def change_admin_pin(self, current_pin: str, new_pin: str) -&gt; SmartCard:
+    """Change the admin PIN
+
+    Args:
+        current_pin (str): Current admin PIN
+        new_pin (str): New admin PIN
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("passwd")
+    line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+    if line.arguments[0] == "cardutil.change_pin.menu":
+        self.interactive.writelines("3", current_pin, new_pin, new_pin)
+    else:
+        raise ExecutionError("Failed to change Admin PIN")
+
+    line = self.interactive.wait_for_status(
+        StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    if line.code == StatusCodes.SC_OP_SUCCESS:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        return self.active
+    else:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        raise ExecutionError("Failed to change Admin PIN")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.change_reset_code" class="doc doc-heading">
+          <code class="highlight language-python">change_reset_code(admin_pin, reset_code)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Changes the card's reset code</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Admin PIN</p>
+              </div>
+            </li>
+            <li>
+              <b><code>reset_code</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>New reset code</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def change_reset_code(self, admin_pin: str, reset_code: str) -&gt; SmartCard:
+    """Changes the card's reset code
+
+    Args:
+        admin_pin (str): Admin PIN
+        reset_code (str): New reset code
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    self.interactive.writelines("passwd")
+    line = self.interactive.wait_for_status(StatusCodes.GET_LINE)[-1]
+    if line.arguments[0] == "cardutil.change_pin.menu":
+        self.interactive.writelines("4", admin_pin, reset_code, reset_code)
+    else:
+        raise ExecutionError("Failed to change reset code")
+
+    line = self.interactive.wait_for_status(
+        StatusCodes.SC_OP_SUCCESS, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    self.interactive.wait_for_status(StatusCodes.GET_LINE)
+    if line.code == StatusCodes.SC_OP_SUCCESS:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        return self.active
+    else:
+        self.interactive.writelines("Q")
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        raise ExecutionError("Failed to change reset code")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.CardOperator.set_usage_info" class="doc doc-heading">
+          <code class="highlight language-python">set_usage_info(type, value, admin_pin)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets card UIF data</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>type</code></b>
+                  (<code>sign | decrypt | auth</code>)
+              –
+              <div class="doc-md-description">
+                <p>Which UIF flag to set</p>
+              </div>
+            </li>
+            <li>
+              <b><code>value</code></b>
+                  (<code>bool</code>)
+              –
+              <div class="doc-md-description">
+                <p>What value to set it to</p>
+              </div>
+            </li>
+            <li>
+              <b><code>admin_pin</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Card admin PIN</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.SmartCard" href="../../models/cards/#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated card</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_usage_info(
+    self, type: Literal["sign", "decrypt", "auth"], value: bool, admin_pin: str
+) -&gt; SmartCard:
+    """Sets card UIF data
+
+    Args:
+        type (sign | decrypt | auth): Which UIF flag to set
+        value (bool): What value to set it to
+        admin_pin (str): Card admin PIN
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        SmartCard: Updated card
+    """
+    indexMap = {"sign": 1, "decrypt": 2, "auth": 3}
+    self.interactive.writelines(f"uif {indexMap[type]} {'on' if value else 'off'}")
+    line = self.interactive.wait_for_status(
+        StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN
+    )[-1]
+    if line.code == StatusCodes.GET_LINE:
+        raise ExecutionError("Input is invalid.")
+
+    self.interactive.writelines(admin_pin)
+    line = self.interactive.wait_for_status(
+        StatusCodes.GET_LINE, StatusCodes.SC_OP_FAILURE
+    )[-1]
+    if line.code == StatusCodes.GET_LINE:
+        return self.active
+    else:
+        self.interactive.wait_for_status(StatusCodes.GET_LINE)
+        raise ExecutionError("Incorrect PIN")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../messages/" class="btn btn-neutral float-left" title="Message Operations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../models/cards/" class="btn btn-neutral float-right" title="SmartCard Types">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../messages/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../models/cards/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

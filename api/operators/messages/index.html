@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Message Operations - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Message Operations";
+        var mkdocs_page_input_path = "api/operators/messages.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Operators</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Message Operations</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.operators.MessageOperator">MessageOperator</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.encrypt">encrypt</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.decrypt">decrypt</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.encrypt_symmetric">encrypt_symmetric</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.get_recipients">get_recipients</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.sign">sign</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.MessageOperator.verify">verify</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+          <li class="breadcrumb-item">Operators</li>
+      <li class="breadcrumb-item active">Message Operations</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="messages-operator">Messages Operator</h1>
+<hr />
+<p>Performs operations on message data, such as encryption, decryption, signing, etc</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.operators.MessageOperator" class="doc doc-heading">
+          <code>MessageOperator</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.operators.common.BaseOperator">BaseOperator</span></code></p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+              <pre class="highlight"><code class="language-python">class MessageOperator(BaseOperator):
+    def encrypt(
+        self,
+        data: bytes,
+        *recipients: Key | str,
+        compress: bool = True,
+        format: Literal["ascii", "pgp"] = "ascii",
+    ) -&gt; bytes:
+        """Encrypt a message to at least one recipient
+
+        Args:
+            data (bytes): Data to encrypt
+            compress (bool, optional): Whether to compress data. Defaults to True.
+            format (ascii | pgp, optional): What format to output. Defaults to "ascii".
+
+        Raises:
+            ValueError: If no recipients were specified
+
+        Returns:
+            bytes: Encrypted data
+        """
+        if len(recipients) == 0:
+            raise ValueError("Must specify at least one recipient")
+        parsed_recipients = " ".join(
+            [f"-r {r.key_id if isinstance(r, Key) else r}" for r in recipients]
+        )
+        cmd = (
+            "gpg {compress} --batch --encrypt {recipients} {armored} --output -".format(
+                compress="-z 0" if not compress else "",
+                recipients=parsed_recipients,
+                armored="--armor" if format == "ascii" else "",
+            )
+        )
+        result = self.session.run(cmd, decode=False, input=data)
+        if result.code == 0:
+            return result.output
+        raise ExecutionError(f"Failed to encrypt:\n{result.output}")
+
+    def decrypt(
+        self, data: bytes, key: Key | None = None, passphrase: str | None = None
+    ) -&gt; bytes:
+        """Decrypt PGP-encrypted data
+
+        Args:
+            data (bytes): Data to decrypt
+            key (Key | None, optional): Recipient key. Defaults to None
+            passphrase (str | None, optional): Passphrase, if required. Defaults to None.
+
+        Raises:
+            ExecutionError: If the operation fails
+
+        Returns:
+            bytes: Decrypted data (with header info removed)
+        """
+        with NamedTemporaryFile() as datafile:
+            datafile.write(data)
+            datafile.seek(0)
+            cmd = f"gpg {'-u ' + key.fingerprint if key else ''} --batch --pinentry-mode loopback --passphrase-fd 0 --output - --decrypt {datafile.name}"
+            result = self.session.run(
+                cmd, decode=False, input=passphrase + "\n" if passphrase else None
+            )
+        if result.code == 0:
+            return result.output.split(b"\n", maxsplit=2)[-1]
+        raise ExecutionError(f"Failed to decrypt:\n{result.output}")
+
+    def encrypt_symmetric(
+        self,
+        data: bytes,
+        passphrase: str,
+        algo: str = "AES",
+        format: Literal["ascii", "pgp"] = "ascii",
+    ) -&gt; bytes:
+        """Symmetrically encrypt data with &lt;algo&gt; and &lt;passphrase&gt;
+
+        Args:
+            data (bytes): Data to encrypt
+            passphrase (str): Passphrase to use
+            algo (str, optional): Algorithm selection. Defaults to "AES".
+            format (ascii | pgp, optional): Output format. Defaults to "ascii".
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            bytes: Encrypted data
+        """
+        with NamedTemporaryFile() as datafile:
+            datafile.write(data)
+            datafile.seek(0)
+            result = self.session.run(
+                f"gpg {'--armor' if format == 'ascii' else ''} --cipher-algo {algo} --output - --passphrase-fd 0 --pinentry-mode loopback --symmetric {datafile.name}",
+                decode=False,
+                input=passphrase,
+            )
+
+            if result.code == 0:
+                return result.output
+            raise ExecutionError(f"Failed to encrypt:\n{result.output}")
+
+    def get_recipients(
+        self,
+        data: bytes,
+        translate: bool = True,
+        include: list[Literal["known", "unknown"]] = ["known", "unknown"],
+    ) -&gt; list[Key | str]:
+        """Gets all recipients associated with an encrypted message
+
+        Args:
+            data (bytes): Encrypted message
+            translate (bool, optional): Whether to find existing keys
+            include (list[known | unknown], optional): Which keys to include (keys that are known vs keys that are not). Defaults to ["known", "unknown"].
+
+        Raises:
+            ExecutionError: If operation fails
+
+        Returns:
+            list[Key | str]: List of Key objects or, if none match, key IDs
+        """
+        with NamedTemporaryFile() as datafile:
+            datafile.write(data)
+            datafile.seek(0)
+            cmd = f"gpg -d --list-only -v {datafile.name}"
+            result = self.session.run(cmd)
+        if result.code == 0:
+            key_ids = [
+                i.split()[-1] for i in result.output.split("\n") if "public key is" in i
+            ]
+            if translate:
+                keys = []
+                for i in key_ids:
+                    existing = self.gpg.keys.get_key(i)
+                    if i:
+                        if "known" in include:
+                            keys.append(existing)
+                    else:
+                        if "unknown" in include:
+                            keys.append(i)
+
+                return keys
+            else:
+                return key_ids
+        raise ExecutionError(f"Failed to get recipients:\n{result.output}")
+
+    def sign(
+        self,
+        data: bytes,
+        key: Key,
+        mode: Literal["standard", "clear", "detach"] = "standard",
+        passphrase: str | None = None,
+        format: Literal["ascii", "pgp"] = "ascii",
+    ) -&gt; bytes:
+        """Signs data with the specified key.
+
+        Args:
+            data (bytes): Data to sign
+            key (Key): Key to sign with
+            mode (standard | clear | detach, optional): What kind of signature to create. Defaults to "standard".
+            passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+            format (ascii | pgp, optional): Output format. Defaults to "ascii".
+
+        Raises:
+            ExecutionError: If the operation fails
+
+        Returns:
+            bytes: Signed data/detached signature
+        """
+        with NamedTemporaryFile() as datafile:
+            datafile.write(data)
+            datafile.seek(0)
+            cmd = "gpg --default-key {key} --batch --yes --pinentry-mode loopback {format} --passphrase-fd 0 -o - {operation} {file}".format(
+                key=key.key_id,
+                format="--armor" if format == "ascii" else "",
+                operation={
+                    "standard": "--sign",
+                    "clear": "--clear-sign",
+                    "detach": "--detach-sign",
+                }[mode],
+                file=datafile.name,
+            )
+            result = self.session.run(
+                cmd, decode=False, input=passphrase + "\n" if passphrase else None
+            )
+            if result.code == 0:
+                return b"\n".join(
+                    [
+                        i
+                        for i in result.output.splitlines()
+                        if not i.startswith(b"gpg: ")
+                    ]
+                )
+            raise ExecutionError(f"Failed to sign message:\n{result.output}")
+
+    def verify(
+        self,
+        data: bytes,
+        signature: bytes | None = None,
+    ) -&gt; list[tuple[str, str]]:
+        """Gets a list of signatures on the given data, with an optional detached signature
+
+        Args:
+            data (bytes): Data, or in the case that `signature` is not specified, signed data.
+            signature (bytes | None, optional): A detached signature. Defaults to None.
+
+        Returns:
+            list[tuple[str, str]]: List of `(Key ID, User ID)` records
+        """
+        with NamedTemporaryFile() as datafile:
+            datafile.write(data)
+            datafile.seek(0)
+            if signature:
+                with NamedTemporaryFile() as sigfile:
+                    sigfile.write(signature)
+                    sigfile.seek(0)
+                    cmd = f"gpg --status-fd 1 --batch -v --verify {sigfile.name} {datafile.name}"
+                    result = self.session.run(cmd)
+            else:
+                cmd = f"gpg --status-fd 1 --batch -v --verify {datafile.name}"
+                result = self.session.run(cmd)
+        return [
+            (i.split(" ")[2], i.split(" ", maxsplit=3)[3])
+            for i in result.output.splitlines()
+            if i.startswith("[GNUPG:] GOODSIG")
+        ]</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.encrypt" class="doc doc-heading">
+          <code class="highlight language-python">encrypt(data, *recipients, compress=True, format='ascii')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Encrypt a message to at least one recipient</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Data to encrypt</p>
+              </div>
+            </li>
+            <li>
+              <b><code>compress</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to compress data. Defaults to True.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>format</code></b>
+                  (<code>ascii | pgp</code>, default:
+                      <code>&#39;ascii&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>What format to output. Defaults to "ascii".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>ValueError</code>
+              –
+              <div class="doc-md-description">
+                <p>If no recipients were specified</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bytes</code></b>(                <code>bytes</code>
+)            –
+            <div class="doc-md-description">
+              <p>Encrypted data</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def encrypt(
+    self,
+    data: bytes,
+    *recipients: Key | str,
+    compress: bool = True,
+    format: Literal["ascii", "pgp"] = "ascii",
+) -&gt; bytes:
+    """Encrypt a message to at least one recipient
+
+    Args:
+        data (bytes): Data to encrypt
+        compress (bool, optional): Whether to compress data. Defaults to True.
+        format (ascii | pgp, optional): What format to output. Defaults to "ascii".
+
+    Raises:
+        ValueError: If no recipients were specified
+
+    Returns:
+        bytes: Encrypted data
+    """
+    if len(recipients) == 0:
+        raise ValueError("Must specify at least one recipient")
+    parsed_recipients = " ".join(
+        [f"-r {r.key_id if isinstance(r, Key) else r}" for r in recipients]
+    )
+    cmd = (
+        "gpg {compress} --batch --encrypt {recipients} {armored} --output -".format(
+            compress="-z 0" if not compress else "",
+            recipients=parsed_recipients,
+            armored="--armor" if format == "ascii" else "",
+        )
+    )
+    result = self.session.run(cmd, decode=False, input=data)
+    if result.code == 0:
+        return result.output
+    raise ExecutionError(f"Failed to encrypt:\n{result.output}")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.decrypt" class="doc doc-heading">
+          <code class="highlight language-python">decrypt(data, key=None, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Decrypt PGP-encrypted data</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Data to decrypt</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="../keys/#gpyg.operators.Key">Key</a> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Recipient key. Defaults to None</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Passphrase, if required. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bytes</code></b>(                <code>bytes</code>
+)            –
+            <div class="doc-md-description">
+              <p>Decrypted data (with header info removed)</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def decrypt(
+    self, data: bytes, key: Key | None = None, passphrase: str | None = None
+) -&gt; bytes:
+    """Decrypt PGP-encrypted data
+
+    Args:
+        data (bytes): Data to decrypt
+        key (Key | None, optional): Recipient key. Defaults to None
+        passphrase (str | None, optional): Passphrase, if required. Defaults to None.
+
+    Raises:
+        ExecutionError: If the operation fails
+
+    Returns:
+        bytes: Decrypted data (with header info removed)
+    """
+    with NamedTemporaryFile() as datafile:
+        datafile.write(data)
+        datafile.seek(0)
+        cmd = f"gpg {'-u ' + key.fingerprint if key else ''} --batch --pinentry-mode loopback --passphrase-fd 0 --output - --decrypt {datafile.name}"
+        result = self.session.run(
+            cmd, decode=False, input=passphrase + "\n" if passphrase else None
+        )
+    if result.code == 0:
+        return result.output.split(b"\n", maxsplit=2)[-1]
+    raise ExecutionError(f"Failed to decrypt:\n{result.output}")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.encrypt_symmetric" class="doc doc-heading">
+          <code class="highlight language-python">encrypt_symmetric(data, passphrase, algo='AES', format='ascii')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Symmetrically encrypt data with <algo> and <passphrase></p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Data to encrypt</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Passphrase to use</p>
+              </div>
+            </li>
+            <li>
+              <b><code>algo</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;AES&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Algorithm selection. Defaults to "AES".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>format</code></b>
+                  (<code>ascii | pgp</code>, default:
+                      <code>&#39;ascii&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Output format. Defaults to "ascii".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bytes</code></b>(                <code>bytes</code>
+)            –
+            <div class="doc-md-description">
+              <p>Encrypted data</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def encrypt_symmetric(
+    self,
+    data: bytes,
+    passphrase: str,
+    algo: str = "AES",
+    format: Literal["ascii", "pgp"] = "ascii",
+) -&gt; bytes:
+    """Symmetrically encrypt data with &lt;algo&gt; and &lt;passphrase&gt;
+
+    Args:
+        data (bytes): Data to encrypt
+        passphrase (str): Passphrase to use
+        algo (str, optional): Algorithm selection. Defaults to "AES".
+        format (ascii | pgp, optional): Output format. Defaults to "ascii".
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        bytes: Encrypted data
+    """
+    with NamedTemporaryFile() as datafile:
+        datafile.write(data)
+        datafile.seek(0)
+        result = self.session.run(
+            f"gpg {'--armor' if format == 'ascii' else ''} --cipher-algo {algo} --output - --passphrase-fd 0 --pinentry-mode loopback --symmetric {datafile.name}",
+            decode=False,
+            input=passphrase,
+        )
+
+        if result.code == 0:
+            return result.output
+        raise ExecutionError(f"Failed to encrypt:\n{result.output}")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.get_recipients" class="doc doc-heading">
+          <code class="highlight language-python">get_recipients(data, translate=True, include=['known', 'unknown'])</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets all recipients associated with an encrypted message</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Encrypted message</p>
+              </div>
+            </li>
+            <li>
+              <b><code>translate</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to find existing keys</p>
+              </div>
+            </li>
+            <li>
+              <b><code>include</code></b>
+                  (<code>list[known | unknown]</code>, default:
+                      <code>[&#39;known&#39;, &#39;unknown&#39;]</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Which keys to include (keys that are known vs keys that are not). Defaults to ["known", "unknown"].</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="../keys/#gpyg.operators.Key">Key</a> | str]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[Key | str]: List of Key objects or, if none match, key IDs</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def get_recipients(
+    self,
+    data: bytes,
+    translate: bool = True,
+    include: list[Literal["known", "unknown"]] = ["known", "unknown"],
+) -&gt; list[Key | str]:
+    """Gets all recipients associated with an encrypted message
+
+    Args:
+        data (bytes): Encrypted message
+        translate (bool, optional): Whether to find existing keys
+        include (list[known | unknown], optional): Which keys to include (keys that are known vs keys that are not). Defaults to ["known", "unknown"].
+
+    Raises:
+        ExecutionError: If operation fails
+
+    Returns:
+        list[Key | str]: List of Key objects or, if none match, key IDs
+    """
+    with NamedTemporaryFile() as datafile:
+        datafile.write(data)
+        datafile.seek(0)
+        cmd = f"gpg -d --list-only -v {datafile.name}"
+        result = self.session.run(cmd)
+    if result.code == 0:
+        key_ids = [
+            i.split()[-1] for i in result.output.split("\n") if "public key is" in i
+        ]
+        if translate:
+            keys = []
+            for i in key_ids:
+                existing = self.gpg.keys.get_key(i)
+                if i:
+                    if "known" in include:
+                        keys.append(existing)
+                else:
+                    if "unknown" in include:
+                        keys.append(i)
+
+            return keys
+        else:
+            return key_ids
+    raise ExecutionError(f"Failed to get recipients:\n{result.output}")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.sign" class="doc doc-heading">
+          <code class="highlight language-python">sign(data, key, mode='standard', passphrase=None, format='ascii')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Signs data with the specified key.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Data to sign</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="../keys/#gpyg.operators.Key">Key</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>Key to sign with</p>
+              </div>
+            </li>
+            <li>
+              <b><code>mode</code></b>
+                  (<code>standard | clear | detach</code>, default:
+                      <code>&#39;standard&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>What kind of signature to create. Defaults to "standard".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase, if required. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>format</code></b>
+                  (<code>ascii | pgp</code>, default:
+                      <code>&#39;ascii&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Output format. Defaults to "ascii".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bytes</code></b>(                <code>bytes</code>
+)            –
+            <div class="doc-md-description">
+              <p>Signed data/detached signature</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def sign(
+    self,
+    data: bytes,
+    key: Key,
+    mode: Literal["standard", "clear", "detach"] = "standard",
+    passphrase: str | None = None,
+    format: Literal["ascii", "pgp"] = "ascii",
+) -&gt; bytes:
+    """Signs data with the specified key.
+
+    Args:
+        data (bytes): Data to sign
+        key (Key): Key to sign with
+        mode (standard | clear | detach, optional): What kind of signature to create. Defaults to "standard".
+        passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+        format (ascii | pgp, optional): Output format. Defaults to "ascii".
+
+    Raises:
+        ExecutionError: If the operation fails
+
+    Returns:
+        bytes: Signed data/detached signature
+    """
+    with NamedTemporaryFile() as datafile:
+        datafile.write(data)
+        datafile.seek(0)
+        cmd = "gpg --default-key {key} --batch --yes --pinentry-mode loopback {format} --passphrase-fd 0 -o - {operation} {file}".format(
+            key=key.key_id,
+            format="--armor" if format == "ascii" else "",
+            operation={
+                "standard": "--sign",
+                "clear": "--clear-sign",
+                "detach": "--detach-sign",
+            }[mode],
+            file=datafile.name,
+        )
+        result = self.session.run(
+            cmd, decode=False, input=passphrase + "\n" if passphrase else None
+        )
+        if result.code == 0:
+            return b"\n".join(
+                [
+                    i
+                    for i in result.output.splitlines()
+                    if not i.startswith(b"gpg: ")
+                ]
+            )
+        raise ExecutionError(f"Failed to sign message:\n{result.output}")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.MessageOperator.verify" class="doc doc-heading">
+          <code class="highlight language-python">verify(data, signature=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets a list of signatures on the given data, with an optional detached signature</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>data</code></b>
+                  (<code>bytes</code>)
+              –
+              <div class="doc-md-description">
+                <p>Data, or in the case that <code>signature</code> is not specified, signed data.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>signature</code></b>
+                  (<code>bytes | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>A detached signature. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[tuple[str, str]]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[tuple[str, str]]: List of <code>(Key ID, User ID)</code> records</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/messages.py</code></summary>
+            <pre class="highlight"><code class="language-python">def verify(
+    self,
+    data: bytes,
+    signature: bytes | None = None,
+) -&gt; list[tuple[str, str]]:
+    """Gets a list of signatures on the given data, with an optional detached signature
+
+    Args:
+        data (bytes): Data, or in the case that `signature` is not specified, signed data.
+        signature (bytes | None, optional): A detached signature. Defaults to None.
+
+    Returns:
+        list[tuple[str, str]]: List of `(Key ID, User ID)` records
+    """
+    with NamedTemporaryFile() as datafile:
+        datafile.write(data)
+        datafile.seek(0)
+        if signature:
+            with NamedTemporaryFile() as sigfile:
+                sigfile.write(signature)
+                sigfile.seek(0)
+                cmd = f"gpg --status-fd 1 --batch -v --verify {sigfile.name} {datafile.name}"
+                result = self.session.run(cmd)
+        else:
+            cmd = f"gpg --status-fd 1 --batch -v --verify {datafile.name}"
+            result = self.session.run(cmd)
+    return [
+        (i.split(" ")[2], i.split(" ", maxsplit=3)[3])
+        for i in result.output.splitlines()
+        if i.startswith("[GNUPG:] GOODSIG")
+    ]</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../keys/" class="btn btn-neutral float-left" title="Key Operations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cards/" class="btn btn-neutral float-right" title="SmartCard Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../keys/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../cards/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

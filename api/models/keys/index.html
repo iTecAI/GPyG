@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Key Types - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Key Types";
+        var mkdocs_page_input_path = "api/models/keys.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Operators</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Models & Types</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Key Types</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#key-model">Key Model</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.KeyModel">KeyModel</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-types">Other Types</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.KeyInfo">KeyInfo</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.SecretKeyInfo">SecretKeyInfo</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.UserIDInfo">UserIDInfo</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.SignatureInfo">SignatureInfo</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+          <li class="breadcrumb-item">Models & Types</li>
+      <li class="breadcrumb-item active">Key Types</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="key-data-models">Key Data &amp; Models</h1>
+<hr />
+<h2 id="key-model">Key Model</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.KeyModel" class="doc doc-heading">
+          <code>KeyModel</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.models.infolines.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>The base KeyModel, containing all relevant information about a key.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Attributes:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>is_subkey</code></b>
+                  (<code>bool</code>)
+              –
+              <div class="doc-md-description">
+                <p>Whether the key is a subkey</p>
+              </div>
+            </li>
+            <li>
+              <b><code>type</code></b>
+                  (<code>public | secret</code>)
+              –
+              <div class="doc-md-description">
+                <p>What kind of key this is</p>
+              </div>
+            </li>
+            <li>
+              <b><code>validity</code></b>
+                  (<code><span title="gpyg.models.infolines.FieldValidity">FieldValidity</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>The validity status of the key</p>
+              </div>
+            </li>
+            <li>
+              <b><code>length</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>The key's length</p>
+              </div>
+            </li>
+            <li>
+              <b><code>algorithm</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>The ID of the algorithm used to generate the key</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key_id</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>The key's ID</p>
+              </div>
+            </li>
+            <li>
+              <b><code>creation_date</code></b>
+                  (<code><span title="datetime.datetime">datetime</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>When the key was created</p>
+              </div>
+            </li>
+            <li>
+              <b><code>expiration_date</code></b>
+                  (<code><span title="datetime.datetime">datetime</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>When the key will expire</p>
+              </div>
+            </li>
+            <li>
+              <b><code>owner_trust</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>The trust value of the key owner</p>
+              </div>
+            </li>
+            <li>
+              <b><code>capabilities</code></b>
+                  (<code>list[<span title="gpyg.models.infolines.KeyCapability">KeyCapability</span>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>A list of the key's capabilities</p>
+              </div>
+            </li>
+            <li>
+              <b><code>overall_capabilities</code></b>
+                  (<code>list[<span title="gpyg.models.infolines.KeyCapability">KeyCapability</span>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>A list of the key's capabilities, including those of its subkeys.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>curve_name</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>ECC curve name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>serial_number</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Key S/N</p>
+              </div>
+            </li>
+            <li>
+              <b><code>fingerprint</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Key fingerprint</p>
+              </div>
+            </li>
+            <li>
+              <b><code>keygrip</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Key keygrip</p>
+              </div>
+            </li>
+            <li>
+              <b><code>all_signatures</code></b>
+                  (<code>list[<a class="autorefs autorefs-internal" title="gpyg.models.infolines.SignatureInfo" href="#gpyg.SignatureInfo">SignatureInfo</a>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>List of all signatures (revocation &amp; non-revocation)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>user_ids</code></b>
+                  (<code>list[<a class="autorefs autorefs-internal" title="gpyg.models.infolines.UserIDInfo" href="#gpyg.UserIDInfo">UserIDInfo</a>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>List of this key's user IDs</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/key.py</code></summary>
+              <pre class="highlight"><code class="language-python">class KeyModel(BaseModel):
+    """The base KeyModel, containing all relevant information about a key.
+
+    Attributes:
+        is_subkey (bool): Whether the key is a subkey
+        type (public | secret): What kind of key this is
+        validity (FieldValidity): The validity status of the key
+        length (int): The key's length
+        algorithm (int): The ID of the algorithm used to generate the key
+        key_id (str): The key's ID
+        creation_date (datetime | None): When the key was created
+        expiration_date (datetime | None): When the key will expire
+        owner_trust (str | None): The trust value of the key owner
+        capabilities (list[KeyCapability]): A list of the key's capabilities
+        overall_capabilities (list[KeyCapability]): A list of the key's capabilities, including those of its subkeys.
+        curve_name (str | None): ECC curve name
+        serial_number (str | None): Key S/N
+        fingerprint (str | None): Key fingerprint
+        keygrip (str | None): Key keygrip
+        all_signatures (list[SignatureInfo]): List of all signatures (revocation &amp; non-revocation)
+        user_ids (list[UserIDInfo]): List of this key's user IDs
+    """
+
+    is_subkey: bool = False
+    type: Literal["public", "secret"]
+    validity: FieldValidity
+    length: int
+    algorithm: int
+    key_id: str
+    creation_date: datetime | None
+    expiration_date: datetime | None
+    owner_trust: str | None
+    capabilities: list[KeyCapability]
+    overall_capabilities: list[KeyCapability]
+    curve_name: str | None
+    serial_number: str | None = None
+    fingerprint: str | None = None
+    keygrip: str | None = None
+    all_signatures: list[SignatureInfo] = []
+    user_ids: list[UserIDInfo] = []
+    internal_subkeys: list["KeyModel"] = Field(exclude=True, default_factory=list)
+
+    @computed_field
+    @property
+    def subkeys(self) -&gt; list["KeyModel"] | None:
+        """A list of all subkeys, or None if the key is a subkey.
+
+        Returns:
+            list[KeyModel] | None: List of subkeys
+        """
+        if self.is_subkey:
+            return None
+        return self.internal_subkeys
+
+    @computed_field
+    @property
+    def signatures(self) -&gt; list[SignatureInfo]:
+        """Gets all non-revocation signatures attached to this key
+
+        Returns:
+            list[SignatureInfo]: List of signatures
+        """
+        return [i for i in self.all_signatures if not i.is_revocation]
+
+    @computed_field
+    @property
+    def revocation_signatures(self) -&gt; list[SignatureInfo]:
+        """Gets all revocation signatures attached to this key
+
+        Returns:
+            list[SignatureInfo]: List of revocation signatures
+        """
+        return [i for i in self.all_signatures if i.is_revocation]
+
+    @staticmethod
+    def get_subkeys(
+        key: "KeyModel", subkey_map: dict[str, list["KeyModel"]]
+    ) -&gt; list["KeyModel"]:
+        if key.fingerprint and key.fingerprint in subkey_map.keys():
+            for subkey in subkey_map[key.fingerprint]:
+                subkey.internal_subkeys = KeyModel.get_subkeys(subkey, subkey_map)
+                key.internal_subkeys.append(subkey)
+            return key.internal_subkeys
+        else:
+            return []
+
+    @classmethod
+    def from_infolines(cls, lines: list[InfoLine]) -&gt; list["KeyModel"]:
+        key_mapping: dict[str, list[KeyModel]] = {"root": []}
+        context: KeyModel = None
+        for line in lines:
+            if line.record_type in [
+                InfoRecord.PUBLIC_KEY,
+                InfoRecord.SECRET_KEY,
+                InfoRecord.SUBKEY,
+                InfoRecord.SECRET_SUBKEY,
+            ]:
+                if context:
+                    initial_sigs = [
+                        i
+                        for i in context.signatures
+                        if i.creation_date == context.creation_date
+                    ]
+                    if (
+                        len(initial_sigs) == 0
+                        or initial_sigs[0].signer_fingerprint == context.fingerprint
+                    ):
+                        key_mapping["root"].append(context)
+                    else:
+                        if not initial_sigs[0].signer_fingerprint in key_mapping.keys():
+                            key_mapping[initial_sigs[0].signer_fingerprint] = []
+                        key_mapping[initial_sigs[0].signer_fingerprint].append(context)
+
+                context = (
+                    KeyModel(
+                        type=(
+                            "public"
+                            if line.record_type == InfoRecord.PUBLIC_KEY
+                            else "secret"
+                        ),
+                        **line.model_dump(),
+                    )
+                    if line.record_type
+                    in [InfoRecord.PUBLIC_KEY, InfoRecord.SECRET_KEY]
+                    else KeyModel(
+                        type=(
+                            "public"
+                            if line.record_type == InfoRecord.SUBKEY
+                            else "secret"
+                        ),
+                        is_subkey=True,
+                        **line.model_dump(),
+                    )
+                )
+            elif (
+                line.record_type
+                in [InfoRecord.FINGERPRINT, InfoRecord.SHA256_FINGERPRINT]
+                and context
+            ):
+                context.fingerprint = line.fingerprint
+            elif line.record_type == InfoRecord.KEYGRIP and context:
+                context.keygrip = line.keygrip
+            elif line.record_type == InfoRecord.USER_ID and context:
+                context.user_ids.append(line)
+            elif line.record_type == InfoRecord.SIGNATURE and context:
+                context.all_signatures.append(line)
+            elif line.record_type == InfoRecord.REVOCATION_SIGNATURE and context:
+                context.all_signatures.append(line)
+
+        if context:
+            initial_sigs = [
+                i
+                for i in context.signatures
+                if i.creation_date == context.creation_date
+            ]
+            if (
+                len(initial_sigs) == 0
+                or initial_sigs[0].signer_fingerprint == context.fingerprint
+            ):
+                key_mapping["root"].append(context)
+            else:
+                if not initial_sigs[0].signer_fingerprint in key_mapping.keys():
+                    key_mapping[initial_sigs[0].signer_fingerprint] = []
+                key_mapping[initial_sigs[0].signer_fingerprint].append(context)
+
+        results = key_mapping["root"][:]
+        for key in results:
+            key.internal_subkeys = KeyModel.get_subkeys(key, key_mapping)
+
+        return results</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.KeyModel.subkeys" class="doc doc-heading">
+          <code class="highlight language-python">subkeys: list[KeyModel] | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>A list of all subkeys, or None if the key is a subkey.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.models.key.KeyModel" href="#gpyg.models.KeyModel">KeyModel</a>] | None</code>
+            –
+            <div class="doc-md-description">
+              <p>list[KeyModel] | None: List of subkeys</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.KeyModel.signatures" class="doc doc-heading">
+          <code class="highlight language-python">signatures: list[SignatureInfo]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets all non-revocation signatures attached to this key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.models.infolines.SignatureInfo" href="#gpyg.SignatureInfo">SignatureInfo</a>]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[SignatureInfo]: List of signatures</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.KeyModel.revocation_signatures" class="doc doc-heading">
+          <code class="highlight language-python">revocation_signatures: list[SignatureInfo]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets all revocation signatures attached to this key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.models.infolines.SignatureInfo" href="#gpyg.SignatureInfo">SignatureInfo</a>]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[SignatureInfo]: List of revocation signatures</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+<h2 id="other-types">Other Types</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.KeyInfo" class="doc doc-heading">
+          <code>KeyInfo</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.models.infolines.InfoLine">InfoLine</span></code></p>
+
+  
+      <p>Raw information about a single Key record</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/infolines.py</code></summary>
+              <pre class="highlight"><code class="language-python">class KeyInfo(InfoLine):
+    """Raw information about a single Key record"""
+
+    @computed_field
+    @property
+    def validity(self) -&gt; FieldValidity | None:
+        """Key validity
+
+        Returns:
+            FieldValidity | None: Key validity, if available
+        """
+        return FieldValidity(self.field(2)) if self.field(2) else None
+
+    @computed_field
+    @property
+    def length(self) -&gt; int:
+        """Key length
+
+        Returns:
+            int: Key length, or 0 if unavailable
+        """
+        return int(self.field(3))
+
+    @computed_field
+    @property
+    def algorithm(self) -&gt; int:
+        """The algorithm ID used for this key
+
+        Returns:
+            int: Algorithm ID
+        """
+        return int(self.field(4))
+
+    @computed_field
+    @property
+    def key_id(self) -&gt; str:
+        """The key's ID
+
+        Returns:
+            str: Key ID
+        """
+        return self.field(5)
+
+    @computed_field
+    @property
+    def creation_date(self) -&gt; datetime.datetime | None:
+        """The key's creation date
+
+        Returns:
+            datetime.datetime | None: Creation date, if available
+        """
+        value = self.field(6)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def expiration_date(self) -&gt; datetime.datetime | None:
+        """The key's expiration date
+
+        Returns:
+            datetime.datetime | None: Expiration date, if available
+        """
+        value = self.field(7)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def owner_trust(self) -&gt; str | None:
+        """The owner trust value
+
+        Returns:
+            str | None: Owner trust, if available
+        """
+        return self.field(9)
+
+    @computed_field
+    @property
+    def capabilities(self) -&gt; list[KeyCapability]:
+        """Key capabilities
+
+        Returns:
+            list[KeyCapability]: A list of all capabilities associated with this key
+        """
+        value = self.field(12)
+        if value == None:
+            return []
+
+        return [KeyCapability(i) for i in value if i.lower() == i]
+
+    @computed_field
+    @property
+    def overall_capabilities(self) -&gt; list[KeyCapability]:
+        """Overall key capabilities
+
+        Returns:
+            list[KeyCapability]: A list of all capabilities associated with this key and its subkeys
+        """
+        value = self.field(12)
+        if value == None:
+            return []
+
+        return [KeyCapability(i.lower()) for i in value if i.lower() != i]
+
+    @computed_field
+    @property
+    def curve_name(self) -&gt; str | None:
+        """The name of this key's ECC curve
+
+        Returns:
+            str | None: Curve name, if available
+        """
+        return self.field(17)</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.validity" class="doc doc-heading">
+          <code class="highlight language-python">validity: FieldValidity | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Key validity</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="gpyg.models.infolines.FieldValidity">FieldValidity</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>FieldValidity | None: Key validity, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.length" class="doc doc-heading">
+          <code class="highlight language-python">length: int</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Key length</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>int</code></b>(                <code>int</code>
+)            –
+            <div class="doc-md-description">
+              <p>Key length, or 0 if unavailable</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.algorithm" class="doc doc-heading">
+          <code class="highlight language-python">algorithm: int</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The algorithm ID used for this key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>int</code></b>(                <code>int</code>
+)            –
+            <div class="doc-md-description">
+              <p>Algorithm ID</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.key_id" class="doc doc-heading">
+          <code class="highlight language-python">key_id: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The key's ID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>Key ID</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.creation_date" class="doc doc-heading">
+          <code class="highlight language-python">creation_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The key's creation date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Creation date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.expiration_date" class="doc doc-heading">
+          <code class="highlight language-python">expiration_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The key's expiration date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Expiration date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.owner_trust" class="doc doc-heading">
+          <code class="highlight language-python">owner_trust: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The owner trust value</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Owner trust, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.capabilities" class="doc doc-heading">
+          <code class="highlight language-python">capabilities: list[KeyCapability]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Key capabilities</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<span title="gpyg.models.infolines.KeyCapability">KeyCapability</span>]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[KeyCapability]: A list of all capabilities associated with this key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.overall_capabilities" class="doc doc-heading">
+          <code class="highlight language-python">overall_capabilities: list[KeyCapability]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Overall key capabilities</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<span title="gpyg.models.infolines.KeyCapability">KeyCapability</span>]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[KeyCapability]: A list of all capabilities associated with this key and its subkeys</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.KeyInfo.curve_name" class="doc doc-heading">
+          <code class="highlight language-python">curve_name: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The name of this key's ECC curve</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Curve name, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.SecretKeyInfo" class="doc doc-heading">
+          <code>SecretKeyInfo</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="gpyg.models.infolines.KeyInfo" href="#gpyg.KeyInfo">KeyInfo</a></code></p>
+
+  
+      <p>An extension to KeyInfo, adding S/N info</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/infolines.py</code></summary>
+              <pre class="highlight"><code class="language-python">class SecretKeyInfo(KeyInfo):
+    """An extension to KeyInfo, adding S/N info"""
+
+    @computed_field
+    @property
+    def serial_number(self) -&gt; str | None:
+        """The serial number of this key
+
+        Returns:
+            str | None: S/N, if available
+        """
+        return self.field(15)</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SecretKeyInfo.serial_number" class="doc doc-heading">
+          <code class="highlight language-python">serial_number: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The serial number of this key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: S/N, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.UserIDInfo" class="doc doc-heading">
+          <code>UserIDInfo</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.models.infolines.InfoLine">InfoLine</span></code></p>
+
+  
+      <p>Info pertaining to a single UID</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/infolines.py</code></summary>
+              <pre class="highlight"><code class="language-python">class UserIDInfo(InfoLine):
+    """Info pertaining to a single UID"""
+
+    @computed_field
+    @property
+    def validity(self) -&gt; FieldValidity | None:
+        """This UID's validity
+
+        Returns:
+            FieldValidity | None: UID validity, if available
+        """
+        return FieldValidity(self.field(2)) if self.field(2) else None
+
+    @computed_field
+    @property
+    def creation_date(self) -&gt; datetime.datetime | None:
+        """UID creation date
+
+        Returns:
+            datetime.datetime | None: Creation date, if available
+        """
+        value = self.field(6)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def expiration_date(self) -&gt; datetime.datetime | None:
+        """UID expiration date
+
+        Returns:
+            datetime.datetime | None: Expiration date, if available
+        """
+        value = self.field(7)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def uid_hash(self) -&gt; str | None:
+        """The UID hash
+
+        Returns:
+            str | None: UID hash, if available
+        """
+        return self.field(8)
+
+    @computed_field
+    @property
+    def uid(self) -&gt; str:
+        """Full UID string
+
+        Returns:
+            str: The UID string
+        """
+        return self.field(10)</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.UserIDInfo.validity" class="doc doc-heading">
+          <code class="highlight language-python">validity: FieldValidity | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>This UID's validity</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="gpyg.models.infolines.FieldValidity">FieldValidity</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>FieldValidity | None: UID validity, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.UserIDInfo.creation_date" class="doc doc-heading">
+          <code class="highlight language-python">creation_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>UID creation date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Creation date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.UserIDInfo.expiration_date" class="doc doc-heading">
+          <code class="highlight language-python">expiration_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>UID expiration date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Expiration date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.UserIDInfo.uid_hash" class="doc doc-heading">
+          <code class="highlight language-python">uid_hash: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The UID hash</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: UID hash, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.UserIDInfo.uid" class="doc doc-heading">
+          <code class="highlight language-python">uid: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Full UID string</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>The UID string</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.SignatureInfo" class="doc doc-heading">
+          <code>SignatureInfo</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.models.infolines.InfoLine">InfoLine</span></code></p>
+
+  
+      <p>Info about a single signature (revocation &amp; non-revocation)</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/infolines.py</code></summary>
+              <pre class="highlight"><code class="language-python">class SignatureInfo(InfoLine):
+    """Info about a single signature (revocation &amp; non-revocation)"""
+
+    @computed_field
+    @property
+    def is_revocation(self) -&gt; bool:
+        """Whether this signature is a revocation signature
+
+        Returns:
+            bool: True if revocation, false otherwise
+        """
+        return self.record_type == InfoRecord.REVOCATION_SIGNATURE
+
+    @computed_field
+    @property
+    def validity(self) -&gt; SignatureValidity | None:
+        """The validity of this signature
+
+        Returns:
+            SignatureValidity | None: The signature's validity, if available
+        """
+        value = self.field(2)
+        if value and len(value) &gt; 0:
+            return SignatureValidity(value[0])
+        else:
+            return None
+
+    @computed_field
+    @property
+    def algorithm(self) -&gt; int:
+        """The signature's algorithm
+
+        Returns:
+            int: Algorithm ID
+        """
+        return int(self.field(4))
+
+    @computed_field
+    @property
+    def key_id(self) -&gt; str:
+        """The signer's key ID
+
+        Returns:
+            str: Key ID
+        """
+        return self.field(5)
+
+    @computed_field
+    @property
+    def creation_date(self) -&gt; datetime.datetime | None:
+        """Signature creation date
+
+        Returns:
+            datetime.datetime | None: Creation date, if available
+        """
+        value = self.field(6)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def expiration_date(self) -&gt; datetime.datetime | None:
+        """The signature's expiration date
+
+        Returns:
+            datetime.datetime | None: Expiration date, if available
+        """
+        value = self.field(7)
+        if value:
+            if "T" in value:
+                return datetime.datetime.fromisoformat(value)
+            else:
+                return datetime.datetime.fromtimestamp(float(value))
+        return None
+
+    @computed_field
+    @property
+    def uid(self) -&gt; str:
+        """The UID of the signature
+
+        Returns:
+            str: Signature UID
+        """
+        return self.field(10)
+
+    @computed_field
+    @property
+    def signature_class(self) -&gt; str:
+        """The signature class
+
+        Returns:
+            str: Signature class info
+        """
+        return self.field(11)
+
+    @computed_field
+    @property
+    def signer_fingerprint(self) -&gt; str:
+        """The fingerprint of the signer's key
+
+        Returns:
+            str: Key fingerprint
+        """
+        return self.field(13)</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.is_revocation" class="doc doc-heading">
+          <code class="highlight language-python">is_revocation: bool</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Whether this signature is a revocation signature</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bool</code></b>(                <code>bool</code>
+)            –
+            <div class="doc-md-description">
+              <p>True if revocation, false otherwise</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.validity" class="doc doc-heading">
+          <code class="highlight language-python">validity: SignatureValidity | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The validity of this signature</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="gpyg.models.infolines.SignatureValidity">SignatureValidity</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>SignatureValidity | None: The signature's validity, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.algorithm" class="doc doc-heading">
+          <code class="highlight language-python">algorithm: int</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The signature's algorithm</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>int</code></b>(                <code>int</code>
+)            –
+            <div class="doc-md-description">
+              <p>Algorithm ID</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.key_id" class="doc doc-heading">
+          <code class="highlight language-python">key_id: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The signer's key ID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>Key ID</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.creation_date" class="doc doc-heading">
+          <code class="highlight language-python">creation_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Signature creation date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Creation date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.expiration_date" class="doc doc-heading">
+          <code class="highlight language-python">expiration_date: datetime.datetime | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The signature's expiration date</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>datetime.datetime | None: Expiration date, if available</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.uid" class="doc doc-heading">
+          <code class="highlight language-python">uid: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The UID of the signature</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>Signature UID</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.signature_class" class="doc doc-heading">
+          <code class="highlight language-python">signature_class: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The signature class</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>Signature class info</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.SignatureInfo.signer_fingerprint" class="doc doc-heading">
+          <code class="highlight language-python">signer_fingerprint: str</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The fingerprint of the signer's key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>str</code></b>(                <code>str</code>
+)            –
+            <div class="doc-md-description">
+              <p>Key fingerprint</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../cards/" class="btn btn-neutral float-left" title="SmartCard Types"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../other/" class="btn btn-neutral float-right" title="Other Types">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../cards/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../other/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Message Management - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Message Management";
+        var mkdocs_page_input_path = "usage/message_management.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Message Management</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#encrypting-a-message">Encrypting a Message</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#using-public-key-encryption">Using Public-Key Encryption</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#using-symmetric-encryption">Using Symmetric Encryption</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#decrypting-a-message">Decrypting a Message</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-a-messages-recipients">Getting a Message's Recipients</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sign-a-message">Sign a Message</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verify-a-message">Verify a Message</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Operators</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Usage</li>
+      <li class="breadcrumb-item active">Message Management</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="message-management">Message Management</h1>
+<p><em>Operations related to encryption, decryption, and signing of messages.</em></p>
+<hr />
+<h2 id="encrypting-a-message">Encrypting a Message</h2>
+<h3 id="using-public-key-encryption">Using Public-Key Encryption</h3>
+<p>GPyG can encrypt a message to any number of recipients as follows:</p>
+<pre><code class="language-python"># Encrypts the message in ASCII format to the two keys specified.
+# Keys can either be Key objects or the Key IDs of keys.
+# This method returns bytes, which may then be saved to a file or otherwise processed
+encrypted = gpg.messages.encrypt(b&quot;my secret message&quot;, first_key, second_key)
+</code></pre>
+<h3 id="using-symmetric-encryption">Using Symmetric Encryption</h3>
+<p>If symmetric encryption is required, <code>encrypt_symmetric(...)</code> may be used as follows:</p>
+<pre><code class="language-python"># Encrypts the message symmetrically using the provided password. When no format is specified, defaults to outputting ascii-encoded data.
+encrypted = gpg.messages.encrypt_symmetric(b&quot;my secret message&quot;, &quot;a-secret-password&quot;)
+</code></pre>
+<h2 id="decrypting-a-message">Decrypting a Message</h2>
+<p><code>decrypt(...)</code> can be used to decrypt both public-key and symmetric encrypted data as follows:</p>
+<pre><code class="language-python"># Decrypt using the recipient's private key
+decrypted_pk = gpg.messages.decrypt(encrypted, key=recipient_key, passphrase=&quot;recipient-passphrase&quot;)
+
+# Decrypt symmetric data using the encryption key
+decrypted_symmetric = gpg.messages.decrypt(encrypted, passphrase=&quot;a-secret-password)
+</code></pre>
+<h2 id="getting-a-messages-recipients">Getting a Message's Recipients</h2>
+<p>Given an encrypted message, <code>get_recipients(...)</code> can retrieve a list of the message's recipients. Some examples of its usage follow:</p>
+<pre><code class="language-python"># Return all recipients associated with the data, whether the local GPG instance knows about them or not.
+recipients = gpg.messages.get_recipients(data)
+
+# Return only the known recipients as Key objects
+recipients = gpg.messages.get_recipients(data, include=[&quot;known&quot;])
+
+# Return all fingerprints of recipients
+recipients = gpg.messages.get_recipients(data, translate=False)
+</code></pre>
+<h2 id="sign-a-message">Sign a Message</h2>
+<p>Messages can be signed, creating several types of generated signature. For example:</p>
+<pre><code class="language-python"># Generate a detached signature for a key
+signature = gpg.messages.sign(message, signer_key, mode=&quot;detach&quot;, passphrase=&quot;my-passphrase&quot;)
+
+# Generate an attached signature and return the entire signed message as PGP binary
+signed_message = gpg.messages.sign(message, signer_key, mode=&quot;standard&quot;, passphrase=&quot;my-passphrase&quot;, format=&quot;pgp&quot;)
+</code></pre>
+<h2 id="verify-a-message">Verify a Message</h2>
+<p>Given either a signed message or a message and its default signature, return a list of valid signers of that message.</p>
+<pre><code class="language-python"># Verify a message with a detached signature
+signers = gpg.messages.verify(message, signature=detached_signature)
+
+# Verify a signed message
+signers = gpg.messages.verify(signed_message)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../key_management/" class="btn btn-neutral float-left" title="Key Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../card_management/" class="btn btn-neutral float-right" title="Smart Card Management">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../key_management/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../card_management/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

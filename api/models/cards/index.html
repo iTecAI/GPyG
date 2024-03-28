@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>SmartCard Types - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SmartCard Types";
+        var mkdocs_page_input_path = "api/models/cards.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Operators</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../operators/cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Models & Types</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">SmartCard Types</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#card-model-smartcard">Card Model (SmartCard())</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.SmartCard">SmartCard</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-types">Other Types</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.Sex">Sex</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.PinData">PinData</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.UIFData">UIFData</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.models.KeyData">KeyData</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+          <li class="breadcrumb-item">Models & Types</li>
+      <li class="breadcrumb-item active">SmartCard Types</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="card-data-models">Card Data &amp; Models</h1>
+<hr />
+<p>The following models pertain to Smartcard information &amp; related. See also: <a href="../../operators/cards/">Operations/Cards</a>.</p>
+<h2 id="card-model-smartcard">Card Model (<code>SmartCard()</code>)</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.SmartCard" class="doc doc-heading">
+          <code>SmartCard</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>SmartCard Model. Includes parsing of --card-status output.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class SmartCard(BaseModel):
+    """SmartCard Model. Includes parsing of --card-status output."""
+    lines: dict[str, list[str] | dict[int, list[str]]]
+
+    def field(
+        self, line: str, index: int | None = None, default: Any = None
+    ) -&gt; str | None:
+        """Gets the value of a field index in a line, with an optional default
+
+        Args:
+            line (str): Line key
+            index (int | None, optional): Field index, or 0 if None. Defaults to None.
+            default (Any, optional): Default to return if not found. Defaults to None.
+
+        Returns:
+            str | None: Value at index in field, or None if nonexistent/empty
+        """
+        try:
+            val = self.lines[line][index if index != None else 0]
+            if len(val) == 0:
+                return default
+            return val
+        except:
+            return default
+
+    @classmethod
+    def from_status(cls, status: str) -&gt; "SmartCard":
+        """Parses --card-status output and generates a SmartCard
+
+        Args:
+            status (str): Status output string
+
+        Returns:
+            SmartCard: Generated SmartCard
+        """
+        lines = {}
+        for line in status.splitlines():
+            key, *fields = line.split(":")
+            if key == "keyattr":
+                if not "keyattr" in lines.keys():
+                    lines["keyattr"] = {}
+                lines["keyattr"][int(fields[0])] = fields[1:]
+            else:
+                lines[key.lower()] = fields[:]
+
+        return SmartCard(lines=lines)
+
+    @computed_field
+    @property
+    def reader(self) -&gt; str | None:
+        """Reader Name &amp; Info
+
+        Returns:
+            str | None: Reader name, or None
+        """
+        return self.field("reader")
+
+    @computed_field
+    @property
+    def application_id(self) -&gt; str | None:
+        """Application ID
+
+        Returns:
+            str | None: Application ID, or None
+        """
+        return self.field("reader", index=2)
+
+    @computed_field
+    @property
+    def application_type(self) -&gt; str | None:
+        """Application Type
+
+        Returns:
+            str | None: Application Type, or None
+        """
+        return self.field("reader", index=3)
+
+    @computed_field
+    @property
+    def version(self) -&gt; str | None:
+        """Reader Version
+
+        Returns:
+            str | None: Reader version, or None
+        """
+        return self.field("version")
+
+    @computed_field
+    @property
+    def vendor_id(self) -&gt; str | None:
+        """ID of Smartcard Vendor
+
+        Returns:
+            str | None: Vendor ID, or None
+        """
+        return self.field("vendor")
+
+    @computed_field
+    @property
+    def vendor(self) -&gt; str | None:
+        """Name of Smartcard Vendor
+
+        Returns:
+            str | None: Vendor name, or None
+        """
+        return self.field("vendor", index=1)
+
+    @computed_field
+    @property
+    def serial_number(self) -&gt; str | None:
+        """Smartcard S/N
+
+        Returns:
+            str | None: Serial number, or None
+        """
+        return self.field("serial")
+
+    @computed_field
+    @property
+    def cardholder_name(self) -&gt; str | None:
+        """Cardholder Name
+
+        Returns:
+            str | None: Cardholder name, or None
+        """
+        return " ".join(self.lines.get("name")) if "name" in self.lines.keys() else None
+
+    @computed_field
+    @property
+    def language_preferences(self) -&gt; list[str]:
+        """Cardholder Language Preferences
+
+        Returns:
+            list[str]: List of language preferences
+        """
+        value = self.field("lang")
+        if value:
+            return [
+                value[i] + value[i + 1]
+                for i in range(0, len(value), 2)
+                if len(value) &gt; i + 1
+            ]
+        else:
+            return []
+
+    @computed_field
+    @property
+    def cardholder_gender(self) -&gt; Sex:
+        """Cardholder Sex
+
+        Returns:
+            Sex: Specified sex, or UNSET if not specified.
+        """
+        result = self.field("sex")
+        if result:
+            return Sex(result)
+        return Sex.UNSET
+
+    @computed_field
+    @property
+    def public_key_url(self) -&gt; str | None:
+        """Public Key URI
+
+        Returns:
+            str | None: URI, or None
+        """
+        return self.field("url")
+
+    @computed_field
+    @property
+    def login_data(self) -&gt; str | None:
+        """Login Data
+
+        Returns:
+            str | None: Login data, or None
+        """
+        return self.field("login")
+
+    @computed_field
+    @property
+    def forced_signature_pin(self) -&gt; bool:
+        """Whether signature pin is currently forced
+
+        Returns:
+            bool: If pin is forced
+        """
+        return self.field("forcedpin") == "1"
+
+    @computed_field
+    @property
+    def key_attrs(self) -&gt; list[tuple[int, int]]:
+        """Returns a list of key attrs (ID, Value)
+
+        Returns:
+            list[tuple[int, int]]: Attrs (ID, Value)
+        """
+        attrs = []
+        for attr in sorted(list(self.lines.get("keyattr", {}).keys())):
+            item = self.lines.get("keyattr", {})[attr]
+            attrs.append((int(item[0]), int(item[1])))
+
+        return attrs
+
+    @computed_field
+    @property
+    def max_pin_lengths(self) -&gt; PinData[int]:
+        """Max pin length mapping
+
+        Returns:
+            PinData[int]: Mapping of pin type: max length
+        """
+        return {
+            "pin": int(self.field("maxpinlen", index=0, default=0)),
+            "reset": int(self.field("maxpinlen", index=1, default=0)),
+            "admin": int(self.field("maxpinlen", index=2, default=0)),
+        }
+
+    @computed_field
+    @property
+    def pin_retries(self) -&gt; PinData[int]:
+        """Remaining pin retry mapping
+
+        Returns:
+            PinData[int]: Mapping of pin type: remaining retries
+        """
+        return {
+            "pin": int(self.field("pinretry", index=0, default=0)),
+            "reset": int(self.field("pinretry", index=1, default=0)),
+            "admin": int(self.field("pinretry", index=2, default=0)),
+        }
+
+    @computed_field
+    @property
+    def signature_count(self) -&gt; int | None:
+        """Count of stored signatures
+
+        Returns:
+            int | None: Count, or None
+        """
+        return int(self.field("sigcount", default=0))
+
+    @computed_field
+    @property
+    def kdf_setting(self) -&gt; bool:
+        """Current KDF setting
+
+        Returns:
+            bool: KDF State
+        """
+        return self.field("kdf") == "on"
+
+    @computed_field
+    @property
+    def uif_setting(self) -&gt; UIFData:
+        """UIF Data (usage)
+
+        Returns:
+            UIFData: Mapping of usage: enabled
+        """
+        return {
+            "sign": bool(int(self.field("uif", index=0, default=0))),
+            "decrypt": bool(int(self.field("uif", index=1, default=0))),
+            "auth": bool(int(self.field("uif", index=2, default=0))),
+        }
+
+    @computed_field
+    @property
+    def stored_keys(self) -&gt; list[KeyData]:
+        """Information about the stored keys.
+
+        Returns:
+            list[KeyData]: List of KeyData.
+        """
+        fprs = self.lines.get("fpr", [])
+        fprtimes = self.lines.get("fprtime", [])
+        grps = self.lines.get("grp", [])
+
+        results: list[KeyData] = []
+        for fpr, ftime, grp in zip_longest(fprs, fprtimes, grps):
+            if len(fpr) == 0:
+                continue
+            try:
+                created = datetime.fromtimestamp(float(ftime)) if ftime else None
+            except:
+                created = None
+            results.append({"fingerprint": fpr, "created": created, "keygrip": grp})
+
+        return results</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.reader" class="doc doc-heading">
+          <code class="highlight language-python">reader: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reader Name &amp; Info</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Reader name, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.application_id" class="doc doc-heading">
+          <code class="highlight language-python">application_id: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Application ID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Application ID, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.application_type" class="doc doc-heading">
+          <code class="highlight language-python">application_type: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Application Type</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Application Type, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.version" class="doc doc-heading">
+          <code class="highlight language-python">version: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reader Version</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Reader version, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.vendor_id" class="doc doc-heading">
+          <code class="highlight language-python">vendor_id: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>ID of Smartcard Vendor</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Vendor ID, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.vendor" class="doc doc-heading">
+          <code class="highlight language-python">vendor: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Name of Smartcard Vendor</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Vendor name, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.serial_number" class="doc doc-heading">
+          <code class="highlight language-python">serial_number: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Smartcard S/N</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Serial number, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.cardholder_name" class="doc doc-heading">
+          <code class="highlight language-python">cardholder_name: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Cardholder Name</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Cardholder name, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.language_preferences" class="doc doc-heading">
+          <code class="highlight language-python">language_preferences: list[str]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Cardholder Language Preferences</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[str]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[str]: List of language preferences</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.cardholder_gender" class="doc doc-heading">
+          <code class="highlight language-python">cardholder_gender: Sex</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Cardholder Sex</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Sex</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.card.Sex" href="#gpyg.models.Sex">Sex</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Specified sex, or UNSET if not specified.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.public_key_url" class="doc doc-heading">
+          <code class="highlight language-python">public_key_url: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Public Key URI</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: URI, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.login_data" class="doc doc-heading">
+          <code class="highlight language-python">login_data: str | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Login Data</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Login data, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.forced_signature_pin" class="doc doc-heading">
+          <code class="highlight language-python">forced_signature_pin: bool</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Whether signature pin is currently forced</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bool</code></b>(                <code>bool</code>
+)            –
+            <div class="doc-md-description">
+              <p>If pin is forced</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.key_attrs" class="doc doc-heading">
+          <code class="highlight language-python">key_attrs: list[tuple[int, int]]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of key attrs (ID, Value)</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[tuple[int, int]]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[tuple[int, int]]: Attrs (ID, Value)</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.max_pin_lengths" class="doc doc-heading">
+          <code class="highlight language-python">max_pin_lengths: PinData[int]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Max pin length mapping</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="gpyg.models.card.PinData" href="#gpyg.models.PinData">PinData</a>[int]</code>
+            –
+            <div class="doc-md-description">
+              <p>PinData[int]: Mapping of pin type: max length</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.pin_retries" class="doc doc-heading">
+          <code class="highlight language-python">pin_retries: PinData[int]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Remaining pin retry mapping</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="gpyg.models.card.PinData" href="#gpyg.models.PinData">PinData</a>[int]</code>
+            –
+            <div class="doc-md-description">
+              <p>PinData[int]: Mapping of pin type: remaining retries</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.signature_count" class="doc doc-heading">
+          <code class="highlight language-python">signature_count: int | None</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Count of stored signatures</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>int | None</code>
+            –
+            <div class="doc-md-description">
+              <p>int | None: Count, or None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.kdf_setting" class="doc doc-heading">
+          <code class="highlight language-python">kdf_setting: bool</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Current KDF setting</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bool</code></b>(                <code>bool</code>
+)            –
+            <div class="doc-md-description">
+              <p>KDF State</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.uif_setting" class="doc doc-heading">
+          <code class="highlight language-python">uif_setting: UIFData</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>UIF Data (usage)</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>UIFData</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.card.UIFData" href="#gpyg.models.UIFData">UIFData</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Mapping of usage: enabled</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.models.SmartCard.stored_keys" class="doc doc-heading">
+          <code class="highlight language-python">stored_keys: list[KeyData]</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Information about the stored keys.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.models.card.KeyData" href="#gpyg.models.KeyData">KeyData</a>]</code>
+            –
+            <div class="doc-md-description">
+              <p>list[KeyData]: List of KeyData.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.models.SmartCard.field" class="doc doc-heading">
+          <code class="highlight language-python">field(line, index=None, default=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets the value of a field index in a line, with an optional default</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>line</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Line key</p>
+              </div>
+            </li>
+            <li>
+              <b><code>index</code></b>
+                  (<code>int | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Field index, or 0 if None. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>default</code></b>
+                  (<code><span title="typing.Any">Any</span></code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Default to return if not found. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>str | None</code>
+            –
+            <div class="doc-md-description">
+              <p>str | None: Value at index in field, or None if nonexistent/empty</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/models/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">def field(
+    self, line: str, index: int | None = None, default: Any = None
+) -&gt; str | None:
+    """Gets the value of a field index in a line, with an optional default
+
+    Args:
+        line (str): Line key
+        index (int | None, optional): Field index, or 0 if None. Defaults to None.
+        default (Any, optional): Default to return if not found. Defaults to None.
+
+    Returns:
+        str | None: Value at index in field, or None if nonexistent/empty
+    """
+    try:
+        val = self.lines[line][index if index != None else 0]
+        if len(val) == 0:
+            return default
+        return val
+    except:
+        return default</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.models.SmartCard.from_status" class="doc doc-heading">
+          <code class="highlight language-python">from_status(status)</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Parses --card-status output and generates a SmartCard</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>status</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Status output string</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>SmartCard</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.card.SmartCard" href="#gpyg.models.SmartCard">SmartCard</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Generated SmartCard</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/models/card.py</code></summary>
+            <pre class="highlight"><code class="language-python">@classmethod
+def from_status(cls, status: str) -&gt; "SmartCard":
+    """Parses --card-status output and generates a SmartCard
+
+    Args:
+        status (str): Status output string
+
+    Returns:
+        SmartCard: Generated SmartCard
+    """
+    lines = {}
+    for line in status.splitlines():
+        key, *fields = line.split(":")
+        if key == "keyattr":
+            if not "keyattr" in lines.keys():
+                lines["keyattr"] = {}
+            lines["keyattr"][int(fields[0])] = fields[1:]
+        else:
+            lines[key.lower()] = fields[:]
+
+    return SmartCard(lines=lines)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+<h2 id="other-types">Other Types</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.Sex" class="doc doc-heading">
+          <code>Sex</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="enum.StrEnum">StrEnum</span></code></p>
+
+  
+      <p>Describes a SmartCard's sex marker.</p>
+
+<details class="members" open>
+  <summary>Members</summary>
+  <ul>
+<li><code>UNSET</code>: No sex</li>
+<li><code>FEMALE</code>: Sex set to female</li>
+<li><code>MALE</code>: Sex set to male</li>
+</ul>
+</details>
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class Sex(StrEnum):
+    """Describes a SmartCard's sex marker.
+
+    Members:
+        - `UNSET`: No sex
+        - `FEMALE`: Sex set to female
+        - `MALE`: Sex set to male
+    """
+
+    UNSET = "u"
+    FEMALE = "f"
+    MALE = "m"</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.PinData" class="doc doc-heading">
+          <code>PinData</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.TypedDict">TypedDict</span></code></p>
+
+  
+      <p>Generic container for PIN data</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class PinData[TPinData](TypedDict):
+    """Generic container for PIN data"""
+
+    pin: TPinData
+    reset: TPinData
+    admin: TPinData</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.UIFData" class="doc doc-heading">
+          <code>UIFData</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.TypedDict">TypedDict</span></code></p>
+
+  
+      <p>Smartcard usage data</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class UIFData(TypedDict):
+    """Smartcard usage data"""
+
+    sign: bool
+    decrypt: bool
+    auth: bool</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.models.KeyData" class="doc doc-heading">
+          <code>KeyData</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.TypedDict">TypedDict</span></code></p>
+
+  
+      <p>Data about an individual key stored on the card</p>
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/models/card.py</code></summary>
+              <pre class="highlight"><code class="language-python">class KeyData(TypedDict):
+    """Data about an individual key stored on the card"""
+
+    fingerprint: str | None
+    created: datetime | None
+    keygrip: str | None</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../operators/cards/" class="btn btn-neutral float-left" title="SmartCard Operations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../keys/" class="btn btn-neutral float-right" title="Key Types">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../operators/cards/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../keys/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

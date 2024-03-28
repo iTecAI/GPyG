@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Smart Card Management - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Smart Card Management";
+        var mkdocs_page_input_path = "usage/card_management.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Smart Card Management</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-smartcard-context">The Smartcard Context</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-card-information">Getting Card Information</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generating-keys">Generating Keys</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#further-information">Further Information</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Operators</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/operators/cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Usage</li>
+      <li class="breadcrumb-item active">Smart Card Management</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="smart-card-management">Smart Card Management</h1>
+<p><em>Managing attached PGP Smartcards &amp; their data</em></p>
+<hr />
+<h2 id="prerequisites">Prerequisites</h2>
+<p>To be able to access smartcard functions, you must have:</p>
+<ul>
+<li>A functioning PGP smartcard</li>
+<li>A local GPG configuration capable of interfacing with it</li>
+</ul>
+<h2 id="the-smartcard-context">The Smartcard Context</h2>
+<p>As all smartcard functions rely on a stateful CLI menu in the backend, all smartcard operations must be performed within the <code>GPG.smart_card()</code> context, as follows:</p>
+<pre><code class="language-python">with gpg.smart_card() as card:
+    ...
+</code></pre>
+<p>Given a correct system &amp; card configuration, this should connect to the card and allow for further communication.</p>
+<h2 id="getting-card-information">Getting Card Information</h2>
+<p>Information about the connected card can be retrieved with <code>card.active</code> as follows:</p>
+<pre><code class="language-python">with gpg.smart_card() as card:
+    print(card.active)
+</code></pre>
+<p>If no card is present, this property will resolve to <code>None</code>.</p>
+<h2 id="generating-keys">Generating Keys</h2>
+<p>Keys can be generated on-card such that they never interact with the host system. An example configuration is as follows:</p>
+<pre><code class="language-python">with gpg.smart_card() as card:
+    card.generate_key(&quot;My Name&quot;, expires=&quot;2y&quot;, backup=True, key_passphrase=&quot;backup-password&quot;, force=True)
+</code></pre>
+<p>This example generates a key with the UID "My Name" that will expire in 2 years. The default card pin and admin pin are used, and the generated key will replace any already existing on the card. Additionally, a backup key with the password "backup-password" will be created on the host system.</p>
+<h2 id="further-information">Further Information</h2>
+<p>Further information on smartcard management can be found in the <a href="../../api/operators/cards/">API Reference</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../message_management/" class="btn btn-neutral float-left" title="Message Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../api/gpg-instance/" class="btn btn-neutral float-right" title="GPG Instance">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../message_management/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../api/gpg-instance/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

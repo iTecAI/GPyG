@@ -1,0 +1,5285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Key Operations - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Key Operations";
+        var mkdocs_page_input_path = "api/operators/keys.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../gpg-instance/">GPG Instance</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Operators</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Key Operations</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#keyoperator-main-operator">KeyOperator() - Main Operator</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.KeyOperator">KeyOperator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#key-key-wrapper">Key() - Key Wrapper</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.Key">Key</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#keyeditor-wrapper-for-gpg-edit-key">KeyEditor() - Wrapper for gpg --edit-key</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gpyg.operators.KeyEditor">KeyEditor</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+          <li class="breadcrumb-item">Operators</li>
+      <li class="breadcrumb-item active">Key Operations</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="key-operator">Key Operator</h1>
+<hr />
+<p>The Key Operator handles operations on GPG keys. It should not be instantiated directly, but instead gotten through <code>GPG(...).keys</code></p>
+<h2 id="keyoperator-main-operator"><code>KeyOperator()</code> - Main Operator</h2>
+<p>Main class, handles operations on the entire keyring (fetching keys, generating keys, etc)</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.operators.KeyOperator" class="doc doc-heading">
+          <code>KeyOperator</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="gpyg.operators.common.BaseOperator">BaseOperator</span></code></p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+              <pre class="highlight"><code class="language-python">class KeyOperator(BaseOperator):
+    def generate_key(
+        self,
+        name: str,
+        email: str | None = None,
+        comment: str | None = None,
+        algorithm: str | None = None,
+        usage: list[Literal["sign", "auth", "encr", "cert"]] | None = None,
+        expiration: datetime | timedelta | int | None = None,
+        passphrase: str | None = None,
+        force: bool = False,
+    ) -&gt; "Key | None":
+        """Generate a key given a set of parameters.
+
+        Args:
+            name (str): UID Name
+            email (str | None, optional): Optional UID email. Defaults to None.
+            comment (str | None, optional): Optional UID comment. Defaults to None.
+            algorithm (str | None, optional): Algorithm name. Defaults to None.
+            usage (list["sign" | "auth" | "encr" | "cert"] | None, optional): List of usages, or None for default. Defaults to None.
+            expiration (datetime | timedelta | int | None, optional): Key expiration. Defaults to None.
+            passphrase (str | None, optional): Key passphrase (if left empty, no passphrase). Defaults to None.
+            force (bool, optional): Force creation. Defaults to False.
+
+        Raises:
+            ExecutionError: If key generation fails
+
+        Returns:
+            Returns the generated key
+        """
+        uid = "{name}{email}{comment}".format(
+            name=name,
+            email=f" &lt;{email}&gt; " if email else " ",
+            comment=f"({comment})" if comment else "",
+        ).strip()
+
+        if isinstance(expiration, datetime):
+            expire_str = expiration.isoformat()
+        elif isinstance(expiration, timedelta):
+            expire_str = "seconds=" + str(expiration.seconds)
+        elif type(expiration) == int:
+            expire_str = "seconds=" + str(expiration)
+        else:
+            expire_str = "none"
+
+        command = "gpg {force} --batch --pinentry-mode loopback --passphrase {passphrase} --quick-gen-key '{uid}' {algo} {usage} {expire}".format(
+            force="--yes" if force else "",
+            passphrase="'" + passphrase + "'" if passphrase else "''",
+            uid=uid,
+            algo=algorithm if algorithm else "default",
+            usage=",".join(usage) if usage else "default",
+            expire=expire_str,
+        )
+        proc = self.session.spawn(command)
+        proc.wait()
+        if "certificate stored" in proc.output.strip().split("\n")[-1]:
+            return self.list_keys(
+                pattern=proc.output.strip().split("\n")[-1].split("/")[-1].split(".")[0]
+            )[0]
+        else:
+            raise ExecutionError(proc.output)
+
+    def list_keys(
+        self,
+        pattern: str = None,
+        key_type: Literal["public", "secret"] = "public",
+        check_sigs: bool = True,
+    ) -&gt; list["Key"]:
+        """List keys, optionally filtering by a pattern.
+
+        Args:
+            pattern (str | None, optional): Optional pattern to filter results by
+            key_type (public | secret, optional): What key type to return
+            check_sigs (bool, optional): Whether to check signatures or just list them
+
+        Returns:
+            List of results
+        """
+
+        args = [
+            i
+            for i in [
+                "gpg",
+                "--with-colons",
+                "--with-fingerprint",
+                "--with-subkey-fingerprint",
+                "--with-keygrip",
+                "--with-sig-check" if check_sigs else "--with-sig-list",
+                f"--list-{key_type}-keys",
+                pattern,
+            ]
+            if i != None
+        ]
+        proc = self.session.spawn(args)
+        proc.wait()
+
+        lines = [i for i in proc.output.splitlines() if not i.startswith("gpg: ")]
+        parsed = [parse_infoline(line) for line in lines]
+        return Key.from_infolines(self, parsed)
+
+    def get_key(
+        self, fingerprint: str, key_type: Literal["public", "secret"] = "public"
+    ) -&gt; "Key | None":
+        """Gets a specific key given a fingerprint
+
+        Args:
+            fingerprint (str): Fingerprint to search for
+            key_type (public | secret, optional): What key type to return. Defaults to "public".
+
+        Returns:
+            The located Key, or None if not found.
+        """
+        results = self.list_keys(pattern=fingerprint, key_type=key_type)
+        if len(results) == 0:
+            return None
+
+        return results[0]
+
+    def import_key(self, *keyfiles: str):
+        """Imports keys from file paths into the keyring
+
+        Args:
+            *keyfiles (str): Any number of files to import
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        for file in keyfiles:
+            result = self.session.run(f"gpg --batch --yes --import {file}")
+            if result.code != 0:
+                raise ExecutionError(
+                    f"Failed to import {file} with code {result.code}:\n{result.output}"
+                )</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyOperator.generate_key" class="doc doc-heading">
+          <code class="highlight language-python">generate_key(name, email=None, comment=None, algorithm=None, usage=None, expiration=None, passphrase=None, force=False)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Generate a key given a set of parameters.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID Name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>email</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional UID email. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional UID comment. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>algorithm</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Algorithm name. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>usage</code></b>
+                  (<code>list[sign | auth | encr | cert] | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of usages, or None for default. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>expiration</code></b>
+                  (<code><span title="datetime.datetime">datetime</span> | <span title="datetime.timedelta">timedelta</span> | int | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key expiration. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase (if left empty, no passphrase). Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>force</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Force creation. Defaults to False.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If key generation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>Returns the generated key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def generate_key(
+    self,
+    name: str,
+    email: str | None = None,
+    comment: str | None = None,
+    algorithm: str | None = None,
+    usage: list[Literal["sign", "auth", "encr", "cert"]] | None = None,
+    expiration: datetime | timedelta | int | None = None,
+    passphrase: str | None = None,
+    force: bool = False,
+) -&gt; "Key | None":
+    """Generate a key given a set of parameters.
+
+    Args:
+        name (str): UID Name
+        email (str | None, optional): Optional UID email. Defaults to None.
+        comment (str | None, optional): Optional UID comment. Defaults to None.
+        algorithm (str | None, optional): Algorithm name. Defaults to None.
+        usage (list["sign" | "auth" | "encr" | "cert"] | None, optional): List of usages, or None for default. Defaults to None.
+        expiration (datetime | timedelta | int | None, optional): Key expiration. Defaults to None.
+        passphrase (str | None, optional): Key passphrase (if left empty, no passphrase). Defaults to None.
+        force (bool, optional): Force creation. Defaults to False.
+
+    Raises:
+        ExecutionError: If key generation fails
+
+    Returns:
+        Returns the generated key
+    """
+    uid = "{name}{email}{comment}".format(
+        name=name,
+        email=f" &lt;{email}&gt; " if email else " ",
+        comment=f"({comment})" if comment else "",
+    ).strip()
+
+    if isinstance(expiration, datetime):
+        expire_str = expiration.isoformat()
+    elif isinstance(expiration, timedelta):
+        expire_str = "seconds=" + str(expiration.seconds)
+    elif type(expiration) == int:
+        expire_str = "seconds=" + str(expiration)
+    else:
+        expire_str = "none"
+
+    command = "gpg {force} --batch --pinentry-mode loopback --passphrase {passphrase} --quick-gen-key '{uid}' {algo} {usage} {expire}".format(
+        force="--yes" if force else "",
+        passphrase="'" + passphrase + "'" if passphrase else "''",
+        uid=uid,
+        algo=algorithm if algorithm else "default",
+        usage=",".join(usage) if usage else "default",
+        expire=expire_str,
+    )
+    proc = self.session.spawn(command)
+    proc.wait()
+    if "certificate stored" in proc.output.strip().split("\n")[-1]:
+        return self.list_keys(
+            pattern=proc.output.strip().split("\n")[-1].split("/")[-1].split(".")[0]
+        )[0]
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyOperator.list_keys" class="doc doc-heading">
+          <code class="highlight language-python">list_keys(pattern=None, key_type='public', check_sigs=True)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>List keys, optionally filtering by a pattern.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>pattern</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional pattern to filter results by</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key_type</code></b>
+                  (<code>public | secret</code>, default:
+                      <code>&#39;public&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>What key type to return</p>
+              </div>
+            </li>
+            <li>
+              <b><code>check_sigs</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to check signatures or just list them</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>list[<a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a>]</code>
+            –
+            <div class="doc-md-description">
+              <p>List of results</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def list_keys(
+    self,
+    pattern: str = None,
+    key_type: Literal["public", "secret"] = "public",
+    check_sigs: bool = True,
+) -&gt; list["Key"]:
+    """List keys, optionally filtering by a pattern.
+
+    Args:
+        pattern (str | None, optional): Optional pattern to filter results by
+        key_type (public | secret, optional): What key type to return
+        check_sigs (bool, optional): Whether to check signatures or just list them
+
+    Returns:
+        List of results
+    """
+
+    args = [
+        i
+        for i in [
+            "gpg",
+            "--with-colons",
+            "--with-fingerprint",
+            "--with-subkey-fingerprint",
+            "--with-keygrip",
+            "--with-sig-check" if check_sigs else "--with-sig-list",
+            f"--list-{key_type}-keys",
+            pattern,
+        ]
+        if i != None
+    ]
+    proc = self.session.spawn(args)
+    proc.wait()
+
+    lines = [i for i in proc.output.splitlines() if not i.startswith("gpg: ")]
+    parsed = [parse_infoline(line) for line in lines]
+    return Key.from_infolines(self, parsed)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyOperator.get_key" class="doc doc-heading">
+          <code class="highlight language-python">get_key(fingerprint, key_type='public')</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets a specific key given a fingerprint</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>fingerprint</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Fingerprint to search for</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key_type</code></b>
+                  (<code>public | secret</code>, default:
+                      <code>&#39;public&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>What key type to return. Defaults to "public".</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | None</code>
+            –
+            <div class="doc-md-description">
+              <p>The located Key, or None if not found.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def get_key(
+    self, fingerprint: str, key_type: Literal["public", "secret"] = "public"
+) -&gt; "Key | None":
+    """Gets a specific key given a fingerprint
+
+    Args:
+        fingerprint (str): Fingerprint to search for
+        key_type (public | secret, optional): What key type to return. Defaults to "public".
+
+    Returns:
+        The located Key, or None if not found.
+    """
+    results = self.list_keys(pattern=fingerprint, key_type=key_type)
+    if len(results) == 0:
+        return None
+
+    return results[0]</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyOperator.import_key" class="doc doc-heading">
+          <code class="highlight language-python">import_key(*keyfiles)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Imports keys from file paths into the keyring</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>*keyfiles</code></b>
+                  (<code>str</code>, default:
+                      <code>()</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Any number of files to import</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def import_key(self, *keyfiles: str):
+    """Imports keys from file paths into the keyring
+
+    Args:
+        *keyfiles (str): Any number of files to import
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    for file in keyfiles:
+        result = self.session.run(f"gpg --batch --yes --import {file}")
+        if result.code != 0:
+            raise ExecutionError(
+                f"Failed to import {file} with code {result.code}:\n{result.output}"
+            )</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+<h2 id="key-key-wrapper"><code>Key()</code> - Key Wrapper</h2>
+<p>Wrapper for individual key functions, such as signing, encryption, etc. Returned by <code>KeyOperator()</code> methods.</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.operators.Key" class="doc doc-heading">
+          <code>Key</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="gpyg.models.KeyModel" href="../../models/keys/#gpyg.models.KeyModel">KeyModel</a></code></p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+              <pre class="highlight"><code class="language-python">class Key(KeyModel):
+    operator: KeyOperator = Field(exclude=True)
+    internal_subkeys: list["Key"] = Field(exclude=True, default_factory=list)
+    model_config = {"arbitrary_types_allowed": True}
+
+    @property
+    def session(self) -&gt; ProcessSession:
+        """Gets the internal ProcessSession instance
+
+        Returns:
+            ProcessSession: Internal session
+        """
+        return self.operator.session
+
+    @computed_field
+    def subkeys(self) -&gt; list["Key"] | None:
+        if self.is_subkey:
+            return None
+        return self.internal_subkeys
+
+    @staticmethod
+    def apply(operator: KeyOperator, model: KeyModel) -&gt; "Key":
+        model.internal_subkeys = [
+            Key.apply(operator, i) for i in model.internal_subkeys
+        ][:]
+        return Key(operator=operator, **dict(model))
+
+    @classmethod
+    def from_infolines(
+        cls, operator: KeyOperator, lines: list[InfoLine]
+    ) -&gt; list["Key"]:
+        return [Key.apply(operator, i) for i in super().from_infolines(lines)]
+
+    def reload(self) -&gt; "Key":
+        """Reloads cached information from the keyring.
+
+        Raises:
+            RuntimeError: Fails if the key has been deleted or is otherwise inaccessible
+
+        Returns:
+            Key: A reference to the Key instance
+        """
+        result = self.operator.get_key(self.fingerprint, key_type=self.type)
+        if result:
+            for name, value in result.__dict__.items():
+                setattr(self, name, value)
+        else:
+            raise RuntimeError(
+                "This key has been deleted/is no longer able to be referenced."
+            )
+
+        return self
+
+    def export(
+        self,
+        mode: Literal["gpg", "ascii"] = "ascii",
+        password: str | None = None,
+        filters: list[tuple[Literal["keep-uid", "drop-subkey"], str]] = [],
+        export_local_sigs: bool | None = None,
+        export_attributes: bool | None = None,
+        export_sensitive_revkeys: bool | None = None,
+        export_backup: bool | None = None,
+        export_clean: bool | None = None,
+        export_minimal: bool | None = None,
+        export_revocs: bool | None = None,
+        export_dane: bool | None = None,
+        mode1003: bool | None = None,
+    ) -&gt; bytes:
+        """Exports a key in the given format.
+
+        Args:
+            mode (gpg | ascii, optional): Whether to output as GPG binary or ASCII armor. Defaults to "ascii".
+            password (str | None, optional): Password required to unlock secret key, which may or may not be relevant. Defaults to None.
+            filters (list[tuple[keep-uid | drop-subkey, str]], optional): List of export filters. For more information, see the GPG manual. Defaults to [].
+
+            export_local_sigs (bool | None, optional): Allow exporting key signatures marked as "local". This is not generally useful unless a shared keyring scheme is being used. Defaults to no. Defaults to None.
+            export_attributes (bool | None, optional): Include attribute user IDs (photo IDs) while exporting. Not including attribute user IDs is useful to export keys that are going to be used by an OpenPGP program that does not accept attribute user IDs. Defaults to yes. Defaults to None.
+            export_sensitive_revkeys (bool | None, optional): Include designated revoker information that was marked as "sensitive". Defaults to no. Defaults to None.
+            export_backup (bool | None, optional): Export for use as a backup. The exported data includes all data which is needed to restore the key or keys later with GnuPG. The format is basically the OpenPGP format but enhanced with GnuPG specific data. All other contradicting options are overridden. Defaults to None.
+            export_clean (bool | None, optional): Compact (remove all signatures from) user IDs on the key being exported if the user IDs are not usable. Also, do not export any signatures that are not usable. This includes signatures that were issued by keys that are not present on the keyring. This option is the same as running the --edit-key command "clean" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.
+            export_minimal (bool | None, optional): Export the smallest key possible. This removes all signatures except the most recent self-signature on each user ID. This option is the same as running the --edit-key command "minimize" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.
+            export_revocs (bool | None, optional): Export only standalone revocation certificates of the key. This option does not export revocations of 3rd party certificate revocations. Defaults to None.
+            export_dane (bool | None, optional): Instead of outputting the key material output OpenPGP DANE records suitable to put into DNS zone files. An ORIGIN line is printed before each record to allow diverting the records to the corresponding zone file. Defaults to None.
+            mode1003 (bool | None, optional): Enable the use of a new secret key export format. This format avoids the re-encryption as required with the current OpenPGP format and also improves the security of the secret key if it has been protected with a passphrase. Note that an unprotected key is exported as-is and thus not secure; the general rule to convey secret keys in an OpenPGP encrypted file still applies with this mode. Versions of GnuPG before 2.4.0 are not able to import such a secret file. Defaults to None.
+
+        Raises:
+            ExecutionError: Raised if the attempted export operation fails.
+
+        Returns:
+            bytes: byte-encoded output.
+        """
+        options = dict(
+            export_local_sigs=export_local_sigs,
+            export_attributes=export_attributes,
+            export_sensitive_revkeys=export_sensitive_revkeys,
+            export_backup=export_backup,
+            export_clean=export_clean,
+            export_minimal=export_minimal,
+            export_revocs=export_revocs,
+            export_dane=export_dane,
+            mode1003=mode1003,
+        )
+
+        cmd = "gpg{format} --pinentry-mode loopback --batch{passphrase} --export-options '{options}' {filters} --export{secret} {fingerprint}".format(
+            format=" --armor" if mode == "ascii" else "",
+            secret="-secret-keys" if self.type == "secret" else "",
+            fingerprint=self.fingerprint,
+            passphrase=" --passphrase-fd 0" if password else "",
+            options=",".join(
+                [
+                    ("" if v else "no-") + k.replace("_", "-")
+                    for k, v in options.items()
+                    if v != None
+                ]
+            ),
+            filters=(
+                " ".join(
+                    ["--export-filter " + name + "=" + expr for name, expr in filters]
+                )
+                if len(filters) &gt; 0
+                else ""
+            ),
+        )
+
+        result = self.session.run(
+            cmd, decode=False, input=password + "\n" if password else None
+        )
+        if result.code == 0:
+            return result.output.strip()
+        raise ExecutionError(result.output.decode())
+
+    def set_expiration(
+        self,
+        expiration: date | None = None,
+        subkeys: list[str] | Literal["*"] | None = None,
+        password: str | None = None,
+    ) -&gt; "Key":
+        """Sets the expiration date of the current Key
+
+        Args:
+            expiration (date | None, optional): Expiration date, or None to remove expiration. Defaults to None.
+            subkeys (list[str] | Literal[, optional): Which subkeys to apply to. Can be a list of fingerprints, "*", or None for just the primary key. Defaults to None.
+            password (str | None, optional): Key password. Defaults to None.
+
+        Raises:
+            ExecutionError: Raised if the operation fails
+
+        Returns:
+            Key: Updated reference to self
+        """
+        cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-set-expire {fingerprint} {expiry} {targets}".format(
+            fingerprint=self.fingerprint,
+            expiry=expiration.isoformat() if expiration else "0",
+            targets=(" ".join(subkeys) if subkeys != "*" else "'*'") if subkeys else "",
+        )
+
+        result = self.session.run(cmd, input=password + "\n" if password else None)
+        if result.code == 0:
+            return self.reload()
+        raise ExecutionError(result.output)
+
+    def is_protected(self) -&gt; bool:
+        """Checks if the current key is password-protected
+
+        Returns:
+            bool: True if protected, False otherwise
+        """
+        proc = self.session.run(
+            f"gpg --dry-run --batch --passphrase-fd 0 --pinentry-mode loopback --passwd '{self.fingerprint}'",
+            input="\n",
+        )
+        return "error" in proc.output
+
+    def check_password(self, password: str) -&gt; bool:
+        """Checks whether the given password is valid for this key
+
+        Args:
+            password (str): Password to try
+
+        Returns:
+            bool: True if correct, False otherwise
+        """
+        if not self.is_protected():
+            return True
+
+        proc = self.session.run(
+            f"gpg --dry-run --batch --passphrase-fd 0 --pinentry-mode loopback --passwd '{self.fingerprint}'",
+            input=password + "\n",
+        )
+        return not "error" in proc.output
+
+    def sign_key(
+        self,
+        target: "str | Key",
+        users: list[str] | None = None,
+        password: str | None = None,
+        exportable: bool = True,
+        force: bool = False,
+    ) -&gt; "Key":
+        """Signs another key using the current key
+
+        Args:
+            target (str | Key): Key to sign
+            users (list[str] | None, optional): Which users to sign. Defaults to None.
+            password (str | None, optional): Password of current key, if needed. Defaults to None.
+            exportable (bool, optional): Whether the signature should be exportable. Defaults to True.
+            force (bool, optional): Whether to force signing. Defaults to False.
+
+        Raises:
+            ExecutionError: Raised if the operation fails.
+
+        Returns:
+            Key: Reference to the targeted Key
+        """
+        if isinstance(target, Key):
+            parsed_target = target.fingerprint
+        else:
+            parsed_target = target
+
+        cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 -u {current} {force} --quick-{local}sign-key {fingerprint} {names}".format(
+            current=self.fingerprint,
+            force="--force-sign-key" if force else "",
+            local="" if exportable else "l",
+            fingerprint=parsed_target,
+            names=" ".join(['"' + name + '"' for name in users]) if users else "",
+        )
+        proc = self.session.run(cmd, input=password + "\n" if password else None)
+        if proc.code == 0:
+            if isinstance(target, Key):
+                return target.reload()
+            else:
+                return self.operator.get_key(target)
+        else:
+            raise ExecutionError(proc.output)
+
+    def add_subkey(
+        self,
+        password: str | None = None,
+        algorithm: str | None = None,
+        usage: list[Literal["sign", "auth", "encr"]] | None = None,
+        expiration: datetime | timedelta | int | str | None = None,
+        key_passphrase: str | None = None,
+    ) -&gt; "Key":
+        """Adds a subkey to the selected Key, and refreshes cached data.
+
+        Args:
+            password (str | None, optional): Primary key passphrase. Defaults to None.
+            algorithm (str | None, optional): Algorithm to use. Defaults to None.
+            usage (list[sign | auth | encr] | None, optional): List of usages, or None for the default. Defaults to None.
+            expiration (datetime | timedelta | int | str | None, optional): Expiration date, or None for no expiration. Defaults to None.
+            key_passphrase (str | None, optional): Passphrase for the new key. Defaults to None.
+
+        Returns:
+            Key: Updated reference to self
+        """
+        if self.is_subkey:
+            raise ValueError("Cannot add a subkey to a subkey.")
+
+        if isinstance(expiration, datetime):
+            expire_str = expiration.isoformat()
+        elif isinstance(expiration, timedelta):
+            expire_str = "seconds=" + str(expiration.seconds)
+        elif type(expiration) == int:
+            expire_str = "seconds=" + str(expiration)
+        elif type(expiration) == str:
+            expire_str = expiration
+        else:
+            expire_str = "none"
+        cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --yes --quick-add-key {fingerprint} {algo} {usage} {expiration}".format(
+            fingerprint=self.fingerprint,
+            algo=algorithm if algorithm else "default",
+            usage=",".join(usage) if usage else "default",
+            expiration=expire_str,
+        )
+
+        proc = self.session.run(
+            cmd,
+            input="\n".join(
+                [password if password else "", key_passphrase if key_passphrase else ""]
+            )
+            + "\n",
+        )
+        if proc.code == 0:
+            return self.reload()
+        else:
+            raise ExecutionError(proc.output)
+
+    def add_user_id(
+        self,
+        uid: str = None,
+        name: str = None,
+        email: str = None,
+        comment: str = None,
+        passphrase: str = None,
+    ) -&gt; "Key":
+        """Add a user ID to the current Key
+
+        Args:
+            uid (str, optional): Full UID string (not checked for validity). Defaults to None.
+            name (str, optional): Name part. Defaults to None.
+            email (str, optional): Email part. Defaults to None.
+            comment (str, optional): Comment part. Defaults to None.
+            passphrase (str, optional): Key passphrase. Defaults to None.
+
+        Raises:
+            ValueError: If both UID and any parts are specified
+            ValueError: If neither UID nor Name is specified
+            ExecutionError: If the operation fails
+
+        Returns:
+            Key: An updated reference to the Key
+        """
+        if uid and any([name, email, comment]):
+            raise ValueError("Cannot specify a full UID and parts at the same time.")
+        if not uid and not name:
+            raise ValueError("Must at least specify UID or Name.")
+
+        if uid:
+            parsed = uid
+        else:
+            parsed = " ".join(
+                [
+                    i
+                    for i in [
+                        name,
+                        f"&lt;{email}&gt;" if email else None,
+                        f"({comment})" if comment else None,
+                    ]
+                    if i != None
+                ]
+            )
+
+        cmd = f"gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-add-uid {self.fingerprint} '{parsed}'"
+        proc = self.session.run(
+            cmd,
+            input=passphrase + "\n" if passphrase else None,
+        )
+        if proc.code == 0:
+            return self.reload()
+        else:
+            raise ExecutionError(proc.output)
+
+    def revoke_uid(self, uid: str, passphrase: str = None) -&gt; "Key":
+        """Revokes a given UID on the current Key
+
+        Args:
+            uid (str): UID to revoke (full string)
+            passphrase (str, optional): Key passphrase, if needed. Defaults to None.
+
+        Raises:
+            ExecutionError: If command execution fails
+
+        Returns:
+            Key: Reference to updated key
+        """
+        cmd = f"gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-revoke-uid {self.fingerprint} '{uid}'"
+        proc = self.session.run(
+            cmd,
+            input=passphrase + "\n" if passphrase else None,
+        )
+
+        if proc.code == 0:
+            return self.reload()
+        else:
+            raise ExecutionError(proc.output)
+
+    def delete(self, delete_both: bool = True) -&gt; None:
+        """Deletes self.
+
+        Args:
+            delete_both (bool, optional): Whether to delete both the public and private key. Defaults to True.
+
+        Raises:
+            ExecutionError: If the operation fails
+        """
+        cmd = f"gpg --batch --yes {'--delete-secret-and-public-key' if delete_both else ('--delete-keys' if self.type == 'public' else '--delete-secret-keys')} {self.fingerprint}{'!' if self.is_subkey else ''}"
+        proc = self.session.run(cmd)
+
+        if proc.code == 0:
+            return
+        else:
+            raise ExecutionError(proc.output)
+
+    def revoke_signature(
+        self,
+        signer: "Key | str",
+        users: list[str] | None = None,
+        passphrase: str = None,
+    ) -&gt; "Key":
+        """Revokes a signature on the current Key generated by Signer
+
+        Args:
+            signer (Key | str): The Key (or its fingerprint) that created the signature
+            users (list[str] | None, optional): List of users to apply to. If None, applies to all. Defaults to None.
+            passphrase (str, optional): Key passphrase, if needed. Defaults to None.
+
+        Raises:
+            ExecutionError: If command execution fails
+
+        Returns:
+            Key: Reference to updated key
+        """
+        cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-revoke-sig {fingerprint} {signer} {names}".format(
+            fingerprint=self.fingerprint,
+            signer=signer.fingerprint if isinstance(signer, Key) else signer,
+            names=" ".join(users) if users else "",
+        ).strip()
+        proc = self.session.run(
+            cmd,
+            input=passphrase + "\n" if passphrase else None,
+        )
+        if proc.code == 0:
+            return self.reload()
+        else:
+            raise ExecutionError(proc.output)
+
+    def set_primary_uid(self, uid: str, passphrase: str | None = None) -&gt; "Key":
+        """Set the primary UID of the current Key
+
+        Args:
+            uid (str): User ID to set as primary
+            passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+
+        Raises:
+            ExecutionError: If command execution fails
+
+        Returns:
+            Key: An updated reference to the Key
+        """
+        cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-set-primary-uid '{fingerprint}' '{uid}'".format(
+            fingerprint=self.fingerprint, uid=uid
+        ).strip()
+        proc = self.session.run(
+            cmd,
+            input=passphrase + "\n" if passphrase else None,
+        )
+        if proc.code == 0:
+            return self.reload()
+        else:
+            raise ExecutionError(proc.output)
+
+    @contextmanager
+    def edit(self, user: str | None = None) -&gt; Generator["KeyEditor", Any, Any]:
+        """Create an interactive editing instance
+
+        Args:
+            user (str | None, optional): Optional user to run as. If left as None, uses the current Key's user ID. Defaults to None.
+
+        Yields:
+            KeyEditor: An initialized interactive instance
+        """
+        with StatusInteractive(
+            self.session,
+            f"gpg --command-fd 0 --status-fd 1 -u {user if user else self.fingerprint} --with-sig-list --pinentry-mode loopback --yes --with-colons --no-tty --edit-key {self.fingerprint}",
+        ) as interactive:
+            editor = KeyEditor(self, user if user else self.fingerprint, interactive)
+            yield editor</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.operators.Key.session" class="doc doc-heading">
+          <code class="highlight language-python">session: ProcessSession</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets the internal ProcessSession instance</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>ProcessSession</code></b>(                <code><span title="gpyg.util.ProcessSession">ProcessSession</span></code>
+)            –
+            <div class="doc-md-description">
+              <p>Internal session</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.reload" class="doc doc-heading">
+          <code class="highlight language-python">reload()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reloads cached information from the keyring.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>RuntimeError</code>
+              –
+              <div class="doc-md-description">
+                <p>Fails if the key has been deleted or is otherwise inaccessible</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>A reference to the Key instance</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def reload(self) -&gt; "Key":
+    """Reloads cached information from the keyring.
+
+    Raises:
+        RuntimeError: Fails if the key has been deleted or is otherwise inaccessible
+
+    Returns:
+        Key: A reference to the Key instance
+    """
+    result = self.operator.get_key(self.fingerprint, key_type=self.type)
+    if result:
+        for name, value in result.__dict__.items():
+            setattr(self, name, value)
+    else:
+        raise RuntimeError(
+            "This key has been deleted/is no longer able to be referenced."
+        )
+
+    return self</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.export" class="doc doc-heading">
+          <code class="highlight language-python">export(mode='ascii', password=None, filters=[], export_local_sigs=None, export_attributes=None, export_sensitive_revkeys=None, export_backup=None, export_clean=None, export_minimal=None, export_revocs=None, export_dane=None, mode1003=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Exports a key in the given format.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>mode</code></b>
+                  (<code><span title="gpyg.gpg">gpg</span> | ascii</code>, default:
+                      <code>&#39;ascii&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to output as GPG binary or ASCII armor. Defaults to "ascii".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>password</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Password required to unlock secret key, which may or may not be relevant. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>filters</code></b>
+                  (<code>list[tuple[keep - uid | drop - subkey, str]]</code>, default:
+                      <code>[]</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of export filters. For more information, see the GPG manual. Defaults to [].</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_local_sigs</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Allow exporting key signatures marked as "local". This is not generally useful unless a shared keyring scheme is being used. Defaults to no. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_attributes</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Include attribute user IDs (photo IDs) while exporting. Not including attribute user IDs is useful to export keys that are going to be used by an OpenPGP program that does not accept attribute user IDs. Defaults to yes. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_sensitive_revkeys</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Include designated revoker information that was marked as "sensitive". Defaults to no. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_backup</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Export for use as a backup. The exported data includes all data which is needed to restore the key or keys later with GnuPG. The format is basically the OpenPGP format but enhanced with GnuPG specific data. All other contradicting options are overridden. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_clean</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Compact (remove all signatures from) user IDs on the key being exported if the user IDs are not usable. Also, do not export any signatures that are not usable. This includes signatures that were issued by keys that are not present on the keyring. This option is the same as running the --edit-key command "clean" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_minimal</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Export the smallest key possible. This removes all signatures except the most recent self-signature on each user ID. This option is the same as running the --edit-key command "minimize" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_revocs</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Export only standalone revocation certificates of the key. This option does not export revocations of 3rd party certificate revocations. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>export_dane</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Instead of outputting the key material output OpenPGP DANE records suitable to put into DNS zone files. An ORIGIN line is printed before each record to allow diverting the records to the corresponding zone file. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>mode1003</code></b>
+                  (<code>bool | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Enable the use of a new secret key export format. This format avoids the re-encryption as required with the current OpenPGP format and also improves the security of the secret key if it has been protected with a passphrase. Note that an unprotected key is exported as-is and thus not secure; the general rule to convey secret keys in an OpenPGP encrypted file still applies with this mode. Versions of GnuPG before 2.4.0 are not able to import such a secret file. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Raised if the attempted export operation fails.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bytes</code></b>(                <code>bytes</code>
+)            –
+            <div class="doc-md-description">
+              <p>byte-encoded output.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def export(
+    self,
+    mode: Literal["gpg", "ascii"] = "ascii",
+    password: str | None = None,
+    filters: list[tuple[Literal["keep-uid", "drop-subkey"], str]] = [],
+    export_local_sigs: bool | None = None,
+    export_attributes: bool | None = None,
+    export_sensitive_revkeys: bool | None = None,
+    export_backup: bool | None = None,
+    export_clean: bool | None = None,
+    export_minimal: bool | None = None,
+    export_revocs: bool | None = None,
+    export_dane: bool | None = None,
+    mode1003: bool | None = None,
+) -&gt; bytes:
+    """Exports a key in the given format.
+
+    Args:
+        mode (gpg | ascii, optional): Whether to output as GPG binary or ASCII armor. Defaults to "ascii".
+        password (str | None, optional): Password required to unlock secret key, which may or may not be relevant. Defaults to None.
+        filters (list[tuple[keep-uid | drop-subkey, str]], optional): List of export filters. For more information, see the GPG manual. Defaults to [].
+
+        export_local_sigs (bool | None, optional): Allow exporting key signatures marked as "local". This is not generally useful unless a shared keyring scheme is being used. Defaults to no. Defaults to None.
+        export_attributes (bool | None, optional): Include attribute user IDs (photo IDs) while exporting. Not including attribute user IDs is useful to export keys that are going to be used by an OpenPGP program that does not accept attribute user IDs. Defaults to yes. Defaults to None.
+        export_sensitive_revkeys (bool | None, optional): Include designated revoker information that was marked as "sensitive". Defaults to no. Defaults to None.
+        export_backup (bool | None, optional): Export for use as a backup. The exported data includes all data which is needed to restore the key or keys later with GnuPG. The format is basically the OpenPGP format but enhanced with GnuPG specific data. All other contradicting options are overridden. Defaults to None.
+        export_clean (bool | None, optional): Compact (remove all signatures from) user IDs on the key being exported if the user IDs are not usable. Also, do not export any signatures that are not usable. This includes signatures that were issued by keys that are not present on the keyring. This option is the same as running the --edit-key command "clean" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.
+        export_minimal (bool | None, optional): Export the smallest key possible. This removes all signatures except the most recent self-signature on each user ID. This option is the same as running the --edit-key command "minimize" before export except that the local copy of the key is not modified. Defaults to no. Defaults to None.
+        export_revocs (bool | None, optional): Export only standalone revocation certificates of the key. This option does not export revocations of 3rd party certificate revocations. Defaults to None.
+        export_dane (bool | None, optional): Instead of outputting the key material output OpenPGP DANE records suitable to put into DNS zone files. An ORIGIN line is printed before each record to allow diverting the records to the corresponding zone file. Defaults to None.
+        mode1003 (bool | None, optional): Enable the use of a new secret key export format. This format avoids the re-encryption as required with the current OpenPGP format and also improves the security of the secret key if it has been protected with a passphrase. Note that an unprotected key is exported as-is and thus not secure; the general rule to convey secret keys in an OpenPGP encrypted file still applies with this mode. Versions of GnuPG before 2.4.0 are not able to import such a secret file. Defaults to None.
+
+    Raises:
+        ExecutionError: Raised if the attempted export operation fails.
+
+    Returns:
+        bytes: byte-encoded output.
+    """
+    options = dict(
+        export_local_sigs=export_local_sigs,
+        export_attributes=export_attributes,
+        export_sensitive_revkeys=export_sensitive_revkeys,
+        export_backup=export_backup,
+        export_clean=export_clean,
+        export_minimal=export_minimal,
+        export_revocs=export_revocs,
+        export_dane=export_dane,
+        mode1003=mode1003,
+    )
+
+    cmd = "gpg{format} --pinentry-mode loopback --batch{passphrase} --export-options '{options}' {filters} --export{secret} {fingerprint}".format(
+        format=" --armor" if mode == "ascii" else "",
+        secret="-secret-keys" if self.type == "secret" else "",
+        fingerprint=self.fingerprint,
+        passphrase=" --passphrase-fd 0" if password else "",
+        options=",".join(
+            [
+                ("" if v else "no-") + k.replace("_", "-")
+                for k, v in options.items()
+                if v != None
+            ]
+        ),
+        filters=(
+            " ".join(
+                ["--export-filter " + name + "=" + expr for name, expr in filters]
+            )
+            if len(filters) &gt; 0
+            else ""
+        ),
+    )
+
+    result = self.session.run(
+        cmd, decode=False, input=password + "\n" if password else None
+    )
+    if result.code == 0:
+        return result.output.strip()
+    raise ExecutionError(result.output.decode())</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.set_expiration" class="doc doc-heading">
+          <code class="highlight language-python">set_expiration(expiration=None, subkeys=None, password=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the expiration date of the current Key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>expiration</code></b>
+                  (<code><span title="datetime.date">date</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Expiration date, or None to remove expiration. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>subkeys</code></b>
+                  (<code>list[str] | Literal[</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Which subkeys to apply to. Can be a list of fingerprints, "*", or None for just the primary key. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>password</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key password. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Raised if the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated reference to self</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_expiration(
+    self,
+    expiration: date | None = None,
+    subkeys: list[str] | Literal["*"] | None = None,
+    password: str | None = None,
+) -&gt; "Key":
+    """Sets the expiration date of the current Key
+
+    Args:
+        expiration (date | None, optional): Expiration date, or None to remove expiration. Defaults to None.
+        subkeys (list[str] | Literal[, optional): Which subkeys to apply to. Can be a list of fingerprints, "*", or None for just the primary key. Defaults to None.
+        password (str | None, optional): Key password. Defaults to None.
+
+    Raises:
+        ExecutionError: Raised if the operation fails
+
+    Returns:
+        Key: Updated reference to self
+    """
+    cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-set-expire {fingerprint} {expiry} {targets}".format(
+        fingerprint=self.fingerprint,
+        expiry=expiration.isoformat() if expiration else "0",
+        targets=(" ".join(subkeys) if subkeys != "*" else "'*'") if subkeys else "",
+    )
+
+    result = self.session.run(cmd, input=password + "\n" if password else None)
+    if result.code == 0:
+        return self.reload()
+    raise ExecutionError(result.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.is_protected" class="doc doc-heading">
+          <code class="highlight language-python">is_protected()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Checks if the current key is password-protected</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bool</code></b>(                <code>bool</code>
+)            –
+            <div class="doc-md-description">
+              <p>True if protected, False otherwise</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def is_protected(self) -&gt; bool:
+    """Checks if the current key is password-protected
+
+    Returns:
+        bool: True if protected, False otherwise
+    """
+    proc = self.session.run(
+        f"gpg --dry-run --batch --passphrase-fd 0 --pinentry-mode loopback --passwd '{self.fingerprint}'",
+        input="\n",
+    )
+    return "error" in proc.output</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.check_password" class="doc doc-heading">
+          <code class="highlight language-python">check_password(password)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Checks whether the given password is valid for this key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>password</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>Password to try</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>bool</code></b>(                <code>bool</code>
+)            –
+            <div class="doc-md-description">
+              <p>True if correct, False otherwise</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def check_password(self, password: str) -&gt; bool:
+    """Checks whether the given password is valid for this key
+
+    Args:
+        password (str): Password to try
+
+    Returns:
+        bool: True if correct, False otherwise
+    """
+    if not self.is_protected():
+        return True
+
+    proc = self.session.run(
+        f"gpg --dry-run --batch --passphrase-fd 0 --pinentry-mode loopback --passwd '{self.fingerprint}'",
+        input=password + "\n",
+    )
+    return not "error" in proc.output</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.sign_key" class="doc doc-heading">
+          <code class="highlight language-python">sign_key(target, users=None, password=None, exportable=True, force=False)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Signs another key using the current key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>target</code></b>
+                  (<code>str | <a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>Key to sign</p>
+              </div>
+            </li>
+            <li>
+              <b><code>users</code></b>
+                  (<code>list[str] | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Which users to sign. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>password</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Password of current key, if needed. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>exportable</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether the signature should be exportable. Defaults to True.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>force</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to force signing. Defaults to False.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Raised if the operation fails.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Reference to the targeted Key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def sign_key(
+    self,
+    target: "str | Key",
+    users: list[str] | None = None,
+    password: str | None = None,
+    exportable: bool = True,
+    force: bool = False,
+) -&gt; "Key":
+    """Signs another key using the current key
+
+    Args:
+        target (str | Key): Key to sign
+        users (list[str] | None, optional): Which users to sign. Defaults to None.
+        password (str | None, optional): Password of current key, if needed. Defaults to None.
+        exportable (bool, optional): Whether the signature should be exportable. Defaults to True.
+        force (bool, optional): Whether to force signing. Defaults to False.
+
+    Raises:
+        ExecutionError: Raised if the operation fails.
+
+    Returns:
+        Key: Reference to the targeted Key
+    """
+    if isinstance(target, Key):
+        parsed_target = target.fingerprint
+    else:
+        parsed_target = target
+
+    cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 -u {current} {force} --quick-{local}sign-key {fingerprint} {names}".format(
+        current=self.fingerprint,
+        force="--force-sign-key" if force else "",
+        local="" if exportable else "l",
+        fingerprint=parsed_target,
+        names=" ".join(['"' + name + '"' for name in users]) if users else "",
+    )
+    proc = self.session.run(cmd, input=password + "\n" if password else None)
+    if proc.code == 0:
+        if isinstance(target, Key):
+            return target.reload()
+        else:
+            return self.operator.get_key(target)
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.add_subkey" class="doc doc-heading">
+          <code class="highlight language-python">add_subkey(password=None, algorithm=None, usage=None, expiration=None, key_passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Adds a subkey to the selected Key, and refreshes cached data.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>password</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Primary key passphrase. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>algorithm</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Algorithm to use. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>usage</code></b>
+                  (<code>list[sign | auth | encr] | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of usages, or None for the default. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>expiration</code></b>
+                  (<code><span title="datetime.datetime">datetime</span> | <span title="datetime.timedelta">timedelta</span> | int | str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Expiration date, or None for no expiration. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>key_passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Passphrase for the new key. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Updated reference to self</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def add_subkey(
+    self,
+    password: str | None = None,
+    algorithm: str | None = None,
+    usage: list[Literal["sign", "auth", "encr"]] | None = None,
+    expiration: datetime | timedelta | int | str | None = None,
+    key_passphrase: str | None = None,
+) -&gt; "Key":
+    """Adds a subkey to the selected Key, and refreshes cached data.
+
+    Args:
+        password (str | None, optional): Primary key passphrase. Defaults to None.
+        algorithm (str | None, optional): Algorithm to use. Defaults to None.
+        usage (list[sign | auth | encr] | None, optional): List of usages, or None for the default. Defaults to None.
+        expiration (datetime | timedelta | int | str | None, optional): Expiration date, or None for no expiration. Defaults to None.
+        key_passphrase (str | None, optional): Passphrase for the new key. Defaults to None.
+
+    Returns:
+        Key: Updated reference to self
+    """
+    if self.is_subkey:
+        raise ValueError("Cannot add a subkey to a subkey.")
+
+    if isinstance(expiration, datetime):
+        expire_str = expiration.isoformat()
+    elif isinstance(expiration, timedelta):
+        expire_str = "seconds=" + str(expiration.seconds)
+    elif type(expiration) == int:
+        expire_str = "seconds=" + str(expiration)
+    elif type(expiration) == str:
+        expire_str = expiration
+    else:
+        expire_str = "none"
+    cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --yes --quick-add-key {fingerprint} {algo} {usage} {expiration}".format(
+        fingerprint=self.fingerprint,
+        algo=algorithm if algorithm else "default",
+        usage=",".join(usage) if usage else "default",
+        expiration=expire_str,
+    )
+
+    proc = self.session.run(
+        cmd,
+        input="\n".join(
+            [password if password else "", key_passphrase if key_passphrase else ""]
+        )
+        + "\n",
+    )
+    if proc.code == 0:
+        return self.reload()
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.add_user_id" class="doc doc-heading">
+          <code class="highlight language-python">add_user_id(uid=None, name=None, email=None, comment=None, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a user ID to the current Key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>uid</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Full UID string (not checked for validity). Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>name</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Name part. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>email</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Email part. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Comment part. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>ValueError</code>
+              –
+              <div class="doc-md-description">
+                <p>If both UID and any parts are specified</p>
+              </div>
+            </li>
+            <li>
+                  <code>ValueError</code>
+              –
+              <div class="doc-md-description">
+                <p>If neither UID nor Name is specified</p>
+              </div>
+            </li>
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>An updated reference to the Key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def add_user_id(
+    self,
+    uid: str = None,
+    name: str = None,
+    email: str = None,
+    comment: str = None,
+    passphrase: str = None,
+) -&gt; "Key":
+    """Add a user ID to the current Key
+
+    Args:
+        uid (str, optional): Full UID string (not checked for validity). Defaults to None.
+        name (str, optional): Name part. Defaults to None.
+        email (str, optional): Email part. Defaults to None.
+        comment (str, optional): Comment part. Defaults to None.
+        passphrase (str, optional): Key passphrase. Defaults to None.
+
+    Raises:
+        ValueError: If both UID and any parts are specified
+        ValueError: If neither UID nor Name is specified
+        ExecutionError: If the operation fails
+
+    Returns:
+        Key: An updated reference to the Key
+    """
+    if uid and any([name, email, comment]):
+        raise ValueError("Cannot specify a full UID and parts at the same time.")
+    if not uid and not name:
+        raise ValueError("Must at least specify UID or Name.")
+
+    if uid:
+        parsed = uid
+    else:
+        parsed = " ".join(
+            [
+                i
+                for i in [
+                    name,
+                    f"&lt;{email}&gt;" if email else None,
+                    f"({comment})" if comment else None,
+                ]
+                if i != None
+            ]
+        )
+
+    cmd = f"gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-add-uid {self.fingerprint} '{parsed}'"
+    proc = self.session.run(
+        cmd,
+        input=passphrase + "\n" if passphrase else None,
+    )
+    if proc.code == 0:
+        return self.reload()
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.revoke_uid" class="doc doc-heading">
+          <code class="highlight language-python">revoke_uid(uid, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Revokes a given UID on the current Key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>uid</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID to revoke (full string)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase, if needed. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If command execution fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Reference to updated key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def revoke_uid(self, uid: str, passphrase: str = None) -&gt; "Key":
+    """Revokes a given UID on the current Key
+
+    Args:
+        uid (str): UID to revoke (full string)
+        passphrase (str, optional): Key passphrase, if needed. Defaults to None.
+
+    Raises:
+        ExecutionError: If command execution fails
+
+    Returns:
+        Key: Reference to updated key
+    """
+    cmd = f"gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-revoke-uid {self.fingerprint} '{uid}'"
+    proc = self.session.run(
+        cmd,
+        input=passphrase + "\n" if passphrase else None,
+    )
+
+    if proc.code == 0:
+        return self.reload()
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.delete" class="doc doc-heading">
+          <code class="highlight language-python">delete(delete_both=True)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Deletes self.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>delete_both</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to delete both the public and private key. Defaults to True.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def delete(self, delete_both: bool = True) -&gt; None:
+    """Deletes self.
+
+    Args:
+        delete_both (bool, optional): Whether to delete both the public and private key. Defaults to True.
+
+    Raises:
+        ExecutionError: If the operation fails
+    """
+    cmd = f"gpg --batch --yes {'--delete-secret-and-public-key' if delete_both else ('--delete-keys' if self.type == 'public' else '--delete-secret-keys')} {self.fingerprint}{'!' if self.is_subkey else ''}"
+    proc = self.session.run(cmd)
+
+    if proc.code == 0:
+        return
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.revoke_signature" class="doc doc-heading">
+          <code class="highlight language-python">revoke_signature(signer, users=None, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Revokes a signature on the current Key generated by Signer</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>signer</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | str</code>)
+              –
+              <div class="doc-md-description">
+                <p>The Key (or its fingerprint) that created the signature</p>
+              </div>
+            </li>
+            <li>
+              <b><code>users</code></b>
+                  (<code>list[str] | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of users to apply to. If None, applies to all. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase, if needed. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If command execution fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Reference to updated key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def revoke_signature(
+    self,
+    signer: "Key | str",
+    users: list[str] | None = None,
+    passphrase: str = None,
+) -&gt; "Key":
+    """Revokes a signature on the current Key generated by Signer
+
+    Args:
+        signer (Key | str): The Key (or its fingerprint) that created the signature
+        users (list[str] | None, optional): List of users to apply to. If None, applies to all. Defaults to None.
+        passphrase (str, optional): Key passphrase, if needed. Defaults to None.
+
+    Raises:
+        ExecutionError: If command execution fails
+
+    Returns:
+        Key: Reference to updated key
+    """
+    cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-revoke-sig {fingerprint} {signer} {names}".format(
+        fingerprint=self.fingerprint,
+        signer=signer.fingerprint if isinstance(signer, Key) else signer,
+        names=" ".join(users) if users else "",
+    ).strip()
+    proc = self.session.run(
+        cmd,
+        input=passphrase + "\n" if passphrase else None,
+    )
+    if proc.code == 0:
+        return self.reload()
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.set_primary_uid" class="doc doc-heading">
+          <code class="highlight language-python">set_primary_uid(uid, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Set the primary UID of the current Key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>uid</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>User ID to set as primary</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase, if required. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If command execution fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>Key</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>An updated reference to the Key</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_primary_uid(self, uid: str, passphrase: str | None = None) -&gt; "Key":
+    """Set the primary UID of the current Key
+
+    Args:
+        uid (str): User ID to set as primary
+        passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+
+    Raises:
+        ExecutionError: If command execution fails
+
+    Returns:
+        Key: An updated reference to the Key
+    """
+    cmd = "gpg --batch --pinentry-mode loopback --passphrase-fd 0 --quick-set-primary-uid '{fingerprint}' '{uid}'".format(
+        fingerprint=self.fingerprint, uid=uid
+    ).strip()
+    proc = self.session.run(
+        cmd,
+        input=passphrase + "\n" if passphrase else None,
+    )
+    if proc.code == 0:
+        return self.reload()
+    else:
+        raise ExecutionError(proc.output)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.Key.edit" class="doc doc-heading">
+          <code class="highlight language-python">edit(user=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create an interactive editing instance</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>user</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional user to run as. If left as None, uses the current Key's user ID. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Yields:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b></code>KeyEditor</code></b>(                  <code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.KeyEditor" href="#gpyg.operators.KeyEditor">KeyEditor</a></code>
+)              –
+              <div class="doc-md-description">
+                <p>An initialized interactive instance</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">@contextmanager
+def edit(self, user: str | None = None) -&gt; Generator["KeyEditor", Any, Any]:
+    """Create an interactive editing instance
+
+    Args:
+        user (str | None, optional): Optional user to run as. If left as None, uses the current Key's user ID. Defaults to None.
+
+    Yields:
+        KeyEditor: An initialized interactive instance
+    """
+    with StatusInteractive(
+        self.session,
+        f"gpg --command-fd 0 --status-fd 1 -u {user if user else self.fingerprint} --with-sig-list --pinentry-mode loopback --yes --with-colons --no-tty --edit-key {self.fingerprint}",
+    ) as interactive:
+        editor = KeyEditor(self, user if user else self.fingerprint, interactive)
+        yield editor</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div><hr />
+<h2 id="keyeditor-wrapper-for-gpg-edit-key"><code>KeyEditor()</code> - Wrapper for <code>gpg --edit-key</code></h2>
+<p>Wraps advanced key editing functions in a stateless interface. Returned by <code>Key().edit(...)</code>. Operations in this category should be considered unsafe, as they rely on an unstable terminal menu to function.</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.operators.KeyEditor" class="doc doc-heading">
+          <code>KeyEditor</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+
+
+            <details class="quote">
+              <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+              <pre class="highlight"><code class="language-python">class KeyEditor:
+
+    def __init__(
+        self,
+        key: Key,
+        user: str,
+        interactive: StatusInteractive,
+    ):
+        self.key = key
+        self.user = user
+        self.interactive = interactive
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def dbg(self):
+        for line in self.interactive.readlines(yield_empty=False):
+            print(line)
+
+    def wait_for_status(self, *code: str):
+        lines: list[StatusLine] = []
+        for line in self.interactive.readlines():
+            if line:
+                lines.append(line)
+                if line.is_status and (len(code) == 0 or line.code in code):
+                    return lines
+
+    def list(self) -&gt; list[InfoLine]:
+        self.interactive.writelines("list")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+        non_status = [line for line in lines if not line.is_status]
+        return [parse_infoline(line.content) for line in non_status]
+
+    def quit(self):
+        """Quit without saving"""
+        self.interactive.writelines("quit")
+        self.interactive.process.wait()
+
+    def save(self):
+        """Save changes &amp; quit"""
+        self.interactive.writelines("save")
+        self.interactive.process.wait()
+
+    def set_uid(self, uid: str):
+        """Select a specific UID within the current key
+
+        Args:
+            uid (str): UID to select, or "0" for no UID
+        """
+        self.interactive.writelines(f"uid {uid}")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def set_key(self, key: str | Key | None):
+        """Select a specific subkey
+
+        Args:
+            key (str | Key | None): KEY to select, or None for no selection.
+        """
+
+        if isinstance(key, Key):
+            self.interactive.writelines(f"key {key.key_id}")
+        elif type(key) == str:
+            self.interactive.writelines(f"key {key}")
+        else:
+            self.interactive.writelines("key 0")
+
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def sign(
+        self,
+        mode: SigningModes = SigningModes.EXPORTABLE,
+        signer_passphrase: str | None = None,
+    ) -&gt; None:
+        """Sign the active key.
+
+        Args:
+            mode (SigningModes, optional): What mode to use. Defaults to SigningModes.EXPORTABLE.
+            signer_passphrase (str | None, optional): Signer passphrase, if applicable. Signer is set with .set_uid(...) Defaults to None.
+
+        Raises:
+            ExecutionError: Raised if the operation fails
+        """
+        self.interactive.writelines(
+            str(mode if mode in SigningModes else SigningModes.EXPORTABLE)
+        )
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            self.interactive.seek(0)
+            raise ExecutionError(output=self.interactive.read().decode())
+        self.interactive.writelines("y")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            self.interactive.seek(0)
+            raise ExecutionError(output=self.interactive.read().decode())
+
+        if signer_passphrase:
+            self.interactive.writelines(signer_passphrase)
+        else:
+            self.interactive.writelines("")
+
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def delete_signature(self, *signers: Key | str):
+        """Deletes signatures on the active UID signed by *signers. Does not revoke, just deletes.
+
+        Args:
+            *signers (Key | str): Any number of signers (removes all if not specified)
+
+        Raises:
+            ExecutionError: If the command fails
+        """
+        self.interactive.writelines("delsig")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            self.interactive.seek(0)
+            raise ExecutionError(
+                output="Failed: UID/KEY not selected?\n"
+                + self.interactive.read().decode()
+            )
+
+        while True:
+            if lines[-2].content.startswith("sig:"):
+                signature: SignatureInfo = parse_infoline(lines[-2].content)
+                if len(signers) == 0 or signature.key_id in [
+                    i.key_id if isinstance(i, Key) else i for i in signers
+                ]:
+                    self.interactive.writelines("y")
+                else:
+                    self.interactive.writelines("n")
+            lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+            if lines[-1].code == StatusCodes.GET_LINE:
+                return
+
+    def revoke_signature(
+        self,
+        *signers: Key | str,
+        reason: RevocationReason = RevocationReason.NO_REASON,
+        description: str | None = None,
+    ):
+        """Revokes signatures on the selected UID
+
+        Args:
+            *signers (Key | str): List of signers (removes all if not specified)
+            reason (RevocationReason, optional): Revocation reason. Defaults to RevocationReason.NO_REASON.
+            description (str | None, optional): Revocation description. Defaults to None.
+
+        Raises:
+            ExecutionError: If the command fails
+        """
+        self.interactive.writelines("revsig")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            self.interactive.seek(0)
+            raise ExecutionError(
+                output="Failed: UID/KEY not selected?\n"
+                + self.interactive.read().decode()
+            )
+
+        signer_ids = [s.key_id if isinstance(s, Key) else s for s in signers]
+
+        while True:
+            request = lines[-1]
+            if request.is_status:
+                if request.code == StatusCodes.GET_BOOL:
+                    match request.arguments[0]:
+                        case "ask_revoke_sig.one":
+                            sig: SignatureInfo = parse_infoline(lines[-2].content)
+                            if len(signers) == 0 or sig.key_id in signer_ids:
+                                self.interactive.writelines("y")
+                            else:
+                                self.interactive.writelines("n")
+                        case "ask_revoke_sig.okay":
+                            self.interactive.writelines("y")
+                        case "ask_revocation_reason.okay":
+                            self.interactive.writelines("y")
+                        case _:
+                            self.interactive.writelines("")
+                elif request.code == StatusCodes.GET_LINE:
+                    match request.arguments[0]:
+                        case "ask_revocation_reason.code":
+                            self.interactive.writelines(str(reason))
+                        case "ask_revocation_reason.text":
+                            if description:
+                                self.interactive.writelines(*description.split("\n"))
+                            else:
+                                self.interactive.writelines("")
+                        case "keyedit.prompt":
+                            return
+            lines = self.wait_for_status()
+
+    def add_uid(
+        self,
+        real_name: str,
+        email: str | None = None,
+        comment: str | None = None,
+        passphrase: str | None = None,
+    ):
+        """Adds a single UID to the selected key
+
+        Args:
+            real_name (str): UID name
+            email (str | None, optional): UID email. Defaults to None.
+            comment (str | None, optional): UID comment. Defaults to None.
+            passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+
+        Raises:
+            ExecutionError: If the operation fails
+        """
+        self.interactive.writelines("adduid")
+        while True:
+            lines = self.wait_for_status()
+
+            if lines[-1].is_status and lines[-1].code == StatusCodes.GET_LINE:
+                match lines[-1].arguments[0]:
+                    case "keygen.name":
+                        self.interactive.writelines(real_name)
+                    case "keygen.email":
+                        if email:
+                            self.interactive.writelines(email)
+                        else:
+                            self.interactive.writelines("")
+                    case "keygen.comment":
+                        if comment:
+                            self.interactive.writelines(comment)
+                        else:
+                            self.interactive.writelines("")
+                    case "keyedit.prompt":
+                        return
+            elif lines[-1].is_status and lines[-1].code == StatusCodes.GET_HIDDEN:
+                if passphrase:
+                    self.interactive.writelines(passphrase)
+                else:
+                    self.interactive.writelines("")
+            elif lines[-1].is_status and lines[-1].code == StatusCodes.ERROR:
+                self.interactive.seek(0)
+                raise ExecutionError(self.interactive.read().decode())
+
+    def delete_uid(self):
+        """Delete the selected UID
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("deluid")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Invalid UID selected")
+
+        self.interactive.writelines("y")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def revoke_uid(
+        self,
+        reason: RevocationReason = RevocationReason.NO_REASON,
+        description: str | None = None,
+    ):
+        """Revokes the selected UID
+
+        Args:
+            reason (RevocationReason, optional): Reason for revocation. Defaults to RevocationReason.NO_REASON.
+            description (str | None, optional): Optional description. Defaults to None.
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("revuid")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Invalid UID selected")
+
+        self.interactive.writelines("y")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+        self.interactive.writelines(str(reason))
+
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+        self.interactive.writelines(description if description else "")
+
+        lines = self.wait_for_status(StatusCodes.GET_BOOL)
+        self.interactive.writelines("y")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+
+    def set_primary(self):
+        """Sets the currently selected UID as primary"""
+        self.interactive.writelines("primary")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def delete_key(self):
+        """Delete the currently selected key
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("delkey")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Key not selected/could not be deleted")
+        self.interactive.writelines("y")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def revoke_key(
+        self,
+        reason: KeyRevocationReason = KeyRevocationReason.NO_REASON,
+        description: str | None = None,
+        passphrase: str | None = None,
+    ):
+        """Revokes the selected key
+
+        Args:
+            reason (KeyRevocationReason, optional): Reason to revoke. Defaults to KeyRevocationReason.NO_REASON.
+            description (str | None, optional): Optional description. Defaults to None.
+            passphrase (str | None, optional): Key password, if required. Defaults to None.
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("revkey")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Key not selected/could not be deleted")
+
+        self.interactive.writelines("y")
+        self.wait_for_status(StatusCodes.GET_LINE)
+        self.interactive.writelines(str(reason))
+        self.wait_for_status(StatusCodes.GET_LINE)
+        self.interactive.writelines(description if description else "")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            return
+
+        self.interactive.writelines(passphrase if passphrase else "")
+
+    def expire_key(self, expires: str = "0", passphrase: str | None = None):
+        """Sets a key to expire
+
+        Args:
+            expires (str, optional): Amount of time to expire after, or "0" for never. Defaults to "0".
+            passphrase (str | None, optional): Passphrase, if required. Defaults to None.
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("expire")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+
+        self.interactive.writelines(expires)
+        self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Invalid value")
+
+        self.interactive.writelines("y")
+        self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            return
+
+        if passphrase:
+            self.interactive.writelines(passphrase)
+        else:
+            self.interactive.writelines("")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def trust_key(self, amount: KeyTrust = KeyTrust.UNKNOWN):
+        """Sets the current key's trust value
+
+        Args:
+            amount (KeyTrust, optional): Amount to trust the key. Defaults to KeyTrust.UNKNOWN.
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("trust")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+        if lines[-1].arguments[0] == "keyedit.prompt":
+            raise ExecutionError("Unknown error")
+
+        self.interactive.writelines(str(amount))
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+
+    def set_enabled(self, enabled: bool = True):
+        """Disable/enable the key
+
+        Args:
+            enabled (bool, optional): Whether to enable or disable. Defaults to True.
+        """
+        self.interactive.writelines("enable" if enabled else "disable")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def add_revoker(self, user_id: str):
+        """Adds a revoker (cannot be removed)
+
+        Args:
+            user_id (str): UID to allow to revoke this key
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("addrevoker")
+        lines = self.wait_for_status(StatusCodes.GET_LINE)
+        if lines[-1].arguments[0] == "keyedit.prompt":
+            raise ExecutionError("Unknown error")
+
+        self.interactive.writelines(user_id)
+        self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Invalid value")
+
+        self.interactive.writelines("y")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def change_password(self, old_password: str | None, new_password: str | None):
+        """Change selected key's password
+
+        Args:
+            old_password (str | None): Old password
+            new_password (str | None): New password
+
+        Raises:
+            ExecutionError: If operation fails
+        """
+        self.interactive.writelines("passwd")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Unknown error")
+
+        self.interactive.writelines(old_password if old_password else "")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            raise ExecutionError("Unknown error")
+
+        self.interactive.writelines(new_password if new_password else "")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            return
+
+        self.interactive.writelines(new_password if new_password else "")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def clean(self):
+        """Run the `clean` command"""
+        self.interactive.writelines("clean")
+        self.wait_for_status(StatusCodes.GET_LINE)
+
+    def minimize(self):
+        """Run the `minimize` command"""
+        self.interactive.writelines("minimize")
+        self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.quit" class="doc doc-heading">
+          <code class="highlight language-python">quit()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Quit without saving</p>
+
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def quit(self):
+    """Quit without saving"""
+    self.interactive.writelines("quit")
+    self.interactive.process.wait()</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.save" class="doc doc-heading">
+          <code class="highlight language-python">save()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Save changes &amp; quit</p>
+
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def save(self):
+    """Save changes &amp; quit"""
+    self.interactive.writelines("save")
+    self.interactive.process.wait()</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.set_uid" class="doc doc-heading">
+          <code class="highlight language-python">set_uid(uid)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Select a specific UID within the current key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>uid</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID to select, or "0" for no UID</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_uid(self, uid: str):
+    """Select a specific UID within the current key
+
+    Args:
+        uid (str): UID to select, or "0" for no UID
+    """
+    self.interactive.writelines(f"uid {uid}")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.set_key" class="doc doc-heading">
+          <code class="highlight language-python">set_key(key)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Select a specific subkey</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>key</code></b>
+                  (<code>str | <a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>KEY to select, or None for no selection.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_key(self, key: str | Key | None):
+    """Select a specific subkey
+
+    Args:
+        key (str | Key | None): KEY to select, or None for no selection.
+    """
+
+    if isinstance(key, Key):
+        self.interactive.writelines(f"key {key.key_id}")
+    elif type(key) == str:
+        self.interactive.writelines(f"key {key}")
+    else:
+        self.interactive.writelines("key 0")
+
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.sign" class="doc doc-heading">
+          <code class="highlight language-python">sign(mode=SigningModes.EXPORTABLE, signer_passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sign the active key.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>mode</code></b>
+                  (<code><span title="gpyg.models.SigningModes">SigningModes</span></code>, default:
+                      <code><span title="gpyg.models.SigningModes.EXPORTABLE">EXPORTABLE</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>What mode to use. Defaults to SigningModes.EXPORTABLE.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>signer_passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Signer passphrase, if applicable. Signer is set with .set_uid(...) Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Raised if the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def sign(
+    self,
+    mode: SigningModes = SigningModes.EXPORTABLE,
+    signer_passphrase: str | None = None,
+) -&gt; None:
+    """Sign the active key.
+
+    Args:
+        mode (SigningModes, optional): What mode to use. Defaults to SigningModes.EXPORTABLE.
+        signer_passphrase (str | None, optional): Signer passphrase, if applicable. Signer is set with .set_uid(...) Defaults to None.
+
+    Raises:
+        ExecutionError: Raised if the operation fails
+    """
+    self.interactive.writelines(
+        str(mode if mode in SigningModes else SigningModes.EXPORTABLE)
+    )
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        self.interactive.seek(0)
+        raise ExecutionError(output=self.interactive.read().decode())
+    self.interactive.writelines("y")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        self.interactive.seek(0)
+        raise ExecutionError(output=self.interactive.read().decode())
+
+    if signer_passphrase:
+        self.interactive.writelines(signer_passphrase)
+    else:
+        self.interactive.writelines("")
+
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.delete_signature" class="doc doc-heading">
+          <code class="highlight language-python">delete_signature(*signers)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Deletes signatures on the active UID signed by *signers. Does not revoke, just deletes.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>*signers</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | str</code>, default:
+                      <code>()</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Any number of signers (removes all if not specified)</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the command fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def delete_signature(self, *signers: Key | str):
+    """Deletes signatures on the active UID signed by *signers. Does not revoke, just deletes.
+
+    Args:
+        *signers (Key | str): Any number of signers (removes all if not specified)
+
+    Raises:
+        ExecutionError: If the command fails
+    """
+    self.interactive.writelines("delsig")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        self.interactive.seek(0)
+        raise ExecutionError(
+            output="Failed: UID/KEY not selected?\n"
+            + self.interactive.read().decode()
+        )
+
+    while True:
+        if lines[-2].content.startswith("sig:"):
+            signature: SignatureInfo = parse_infoline(lines[-2].content)
+            if len(signers) == 0 or signature.key_id in [
+                i.key_id if isinstance(i, Key) else i for i in signers
+            ]:
+                self.interactive.writelines("y")
+            else:
+                self.interactive.writelines("n")
+        lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+        if lines[-1].code == StatusCodes.GET_LINE:
+            return</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.revoke_signature" class="doc doc-heading">
+          <code class="highlight language-python">revoke_signature(*signers, reason=RevocationReason.NO_REASON, description=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Revokes signatures on the selected UID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>*signers</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="gpyg.operators.keys.Key" href="#gpyg.operators.Key">Key</a> | str</code>, default:
+                      <code>()</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of signers (removes all if not specified)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>reason</code></b>
+                  (<code><span title="gpyg.models.RevocationReason">RevocationReason</span></code>, default:
+                      <code><span title="gpyg.models.RevocationReason.NO_REASON">NO_REASON</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Revocation reason. Defaults to RevocationReason.NO_REASON.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>description</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Revocation description. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the command fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def revoke_signature(
+    self,
+    *signers: Key | str,
+    reason: RevocationReason = RevocationReason.NO_REASON,
+    description: str | None = None,
+):
+    """Revokes signatures on the selected UID
+
+    Args:
+        *signers (Key | str): List of signers (removes all if not specified)
+        reason (RevocationReason, optional): Revocation reason. Defaults to RevocationReason.NO_REASON.
+        description (str | None, optional): Revocation description. Defaults to None.
+
+    Raises:
+        ExecutionError: If the command fails
+    """
+    self.interactive.writelines("revsig")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        self.interactive.seek(0)
+        raise ExecutionError(
+            output="Failed: UID/KEY not selected?\n"
+            + self.interactive.read().decode()
+        )
+
+    signer_ids = [s.key_id if isinstance(s, Key) else s for s in signers]
+
+    while True:
+        request = lines[-1]
+        if request.is_status:
+            if request.code == StatusCodes.GET_BOOL:
+                match request.arguments[0]:
+                    case "ask_revoke_sig.one":
+                        sig: SignatureInfo = parse_infoline(lines[-2].content)
+                        if len(signers) == 0 or sig.key_id in signer_ids:
+                            self.interactive.writelines("y")
+                        else:
+                            self.interactive.writelines("n")
+                    case "ask_revoke_sig.okay":
+                        self.interactive.writelines("y")
+                    case "ask_revocation_reason.okay":
+                        self.interactive.writelines("y")
+                    case _:
+                        self.interactive.writelines("")
+            elif request.code == StatusCodes.GET_LINE:
+                match request.arguments[0]:
+                    case "ask_revocation_reason.code":
+                        self.interactive.writelines(str(reason))
+                    case "ask_revocation_reason.text":
+                        if description:
+                            self.interactive.writelines(*description.split("\n"))
+                        else:
+                            self.interactive.writelines("")
+                    case "keyedit.prompt":
+                        return
+        lines = self.wait_for_status()</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.add_uid" class="doc doc-heading">
+          <code class="highlight language-python">add_uid(real_name, email=None, comment=None, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Adds a single UID to the selected key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>real_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>email</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>UID email. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>UID comment. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key passphrase, if required. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def add_uid(
+    self,
+    real_name: str,
+    email: str | None = None,
+    comment: str | None = None,
+    passphrase: str | None = None,
+):
+    """Adds a single UID to the selected key
+
+    Args:
+        real_name (str): UID name
+        email (str | None, optional): UID email. Defaults to None.
+        comment (str | None, optional): UID comment. Defaults to None.
+        passphrase (str | None, optional): Key passphrase, if required. Defaults to None.
+
+    Raises:
+        ExecutionError: If the operation fails
+    """
+    self.interactive.writelines("adduid")
+    while True:
+        lines = self.wait_for_status()
+
+        if lines[-1].is_status and lines[-1].code == StatusCodes.GET_LINE:
+            match lines[-1].arguments[0]:
+                case "keygen.name":
+                    self.interactive.writelines(real_name)
+                case "keygen.email":
+                    if email:
+                        self.interactive.writelines(email)
+                    else:
+                        self.interactive.writelines("")
+                case "keygen.comment":
+                    if comment:
+                        self.interactive.writelines(comment)
+                    else:
+                        self.interactive.writelines("")
+                case "keyedit.prompt":
+                    return
+        elif lines[-1].is_status and lines[-1].code == StatusCodes.GET_HIDDEN:
+            if passphrase:
+                self.interactive.writelines(passphrase)
+            else:
+                self.interactive.writelines("")
+        elif lines[-1].is_status and lines[-1].code == StatusCodes.ERROR:
+            self.interactive.seek(0)
+            raise ExecutionError(self.interactive.read().decode())</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.delete_uid" class="doc doc-heading">
+          <code class="highlight language-python">delete_uid()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete the selected UID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def delete_uid(self):
+    """Delete the selected UID
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("deluid")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Invalid UID selected")
+
+    self.interactive.writelines("y")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.revoke_uid" class="doc doc-heading">
+          <code class="highlight language-python">revoke_uid(reason=RevocationReason.NO_REASON, description=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Revokes the selected UID</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>reason</code></b>
+                  (<code><span title="gpyg.models.RevocationReason">RevocationReason</span></code>, default:
+                      <code><span title="gpyg.models.RevocationReason.NO_REASON">NO_REASON</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Reason for revocation. Defaults to RevocationReason.NO_REASON.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>description</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional description. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def revoke_uid(
+    self,
+    reason: RevocationReason = RevocationReason.NO_REASON,
+    description: str | None = None,
+):
+    """Revokes the selected UID
+
+    Args:
+        reason (RevocationReason, optional): Reason for revocation. Defaults to RevocationReason.NO_REASON.
+        description (str | None, optional): Optional description. Defaults to None.
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("revuid")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Invalid UID selected")
+
+    self.interactive.writelines("y")
+    lines = self.wait_for_status(StatusCodes.GET_LINE)
+    self.interactive.writelines(str(reason))
+
+    lines = self.wait_for_status(StatusCodes.GET_LINE)
+    self.interactive.writelines(description if description else "")
+
+    lines = self.wait_for_status(StatusCodes.GET_BOOL)
+    self.interactive.writelines("y")
+    lines = self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.set_primary" class="doc doc-heading">
+          <code class="highlight language-python">set_primary()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the currently selected UID as primary</p>
+
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_primary(self):
+    """Sets the currently selected UID as primary"""
+    self.interactive.writelines("primary")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.delete_key" class="doc doc-heading">
+          <code class="highlight language-python">delete_key()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete the currently selected key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def delete_key(self):
+    """Delete the currently selected key
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("delkey")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Key not selected/could not be deleted")
+    self.interactive.writelines("y")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.revoke_key" class="doc doc-heading">
+          <code class="highlight language-python">revoke_key(reason=KeyRevocationReason.NO_REASON, description=None, passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Revokes the selected key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>reason</code></b>
+                  (<code><span title="gpyg.models.KeyRevocationReason">KeyRevocationReason</span></code>, default:
+                      <code><span title="gpyg.models.KeyRevocationReason.NO_REASON">NO_REASON</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Reason to revoke. Defaults to KeyRevocationReason.NO_REASON.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>description</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional description. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Key password, if required. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def revoke_key(
+    self,
+    reason: KeyRevocationReason = KeyRevocationReason.NO_REASON,
+    description: str | None = None,
+    passphrase: str | None = None,
+):
+    """Revokes the selected key
+
+    Args:
+        reason (KeyRevocationReason, optional): Reason to revoke. Defaults to KeyRevocationReason.NO_REASON.
+        description (str | None, optional): Optional description. Defaults to None.
+        passphrase (str | None, optional): Key password, if required. Defaults to None.
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("revkey")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Key not selected/could not be deleted")
+
+    self.interactive.writelines("y")
+    self.wait_for_status(StatusCodes.GET_LINE)
+    self.interactive.writelines(str(reason))
+    self.wait_for_status(StatusCodes.GET_LINE)
+    self.interactive.writelines(description if description else "")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        return
+
+    self.interactive.writelines(passphrase if passphrase else "")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.expire_key" class="doc doc-heading">
+          <code class="highlight language-python">expire_key(expires='0', passphrase=None)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets a key to expire</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>expires</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;0&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Amount of time to expire after, or "0" for never. Defaults to "0".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>passphrase</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Passphrase, if required. Defaults to None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def expire_key(self, expires: str = "0", passphrase: str | None = None):
+    """Sets a key to expire
+
+    Args:
+        expires (str, optional): Amount of time to expire after, or "0" for never. Defaults to "0".
+        passphrase (str | None, optional): Passphrase, if required. Defaults to None.
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("expire")
+    lines = self.wait_for_status(StatusCodes.GET_LINE)
+
+    self.interactive.writelines(expires)
+    self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Invalid value")
+
+    self.interactive.writelines("y")
+    self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        return
+
+    if passphrase:
+        self.interactive.writelines(passphrase)
+    else:
+        self.interactive.writelines("")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.trust_key" class="doc doc-heading">
+          <code class="highlight language-python">trust_key(amount=KeyTrust.UNKNOWN)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sets the current key's trust value</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>amount</code></b>
+                  (<code><span title="gpyg.models.KeyTrust">KeyTrust</span></code>, default:
+                      <code><span title="gpyg.models.KeyTrust.UNKNOWN">UNKNOWN</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Amount to trust the key. Defaults to KeyTrust.UNKNOWN.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def trust_key(self, amount: KeyTrust = KeyTrust.UNKNOWN):
+    """Sets the current key's trust value
+
+    Args:
+        amount (KeyTrust, optional): Amount to trust the key. Defaults to KeyTrust.UNKNOWN.
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("trust")
+    lines = self.wait_for_status(StatusCodes.GET_LINE)
+    if lines[-1].arguments[0] == "keyedit.prompt":
+        raise ExecutionError("Unknown error")
+
+    self.interactive.writelines(str(amount))
+    lines = self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.set_enabled" class="doc doc-heading">
+          <code class="highlight language-python">set_enabled(enabled=True)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Disable/enable the key</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>enabled</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to enable or disable. Defaults to True.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def set_enabled(self, enabled: bool = True):
+    """Disable/enable the key
+
+    Args:
+        enabled (bool, optional): Whether to enable or disable. Defaults to True.
+    """
+    self.interactive.writelines("enable" if enabled else "disable")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.add_revoker" class="doc doc-heading">
+          <code class="highlight language-python">add_revoker(user_id)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Adds a revoker (cannot be removed)</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>user_id</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>UID to allow to revoke this key</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def add_revoker(self, user_id: str):
+    """Adds a revoker (cannot be removed)
+
+    Args:
+        user_id (str): UID to allow to revoke this key
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("addrevoker")
+    lines = self.wait_for_status(StatusCodes.GET_LINE)
+    if lines[-1].arguments[0] == "keyedit.prompt":
+        raise ExecutionError("Unknown error")
+
+    self.interactive.writelines(user_id)
+    self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_BOOL)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Invalid value")
+
+    self.interactive.writelines("y")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.change_password" class="doc doc-heading">
+          <code class="highlight language-python">change_password(old_password, new_password)</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Change selected key's password</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>old_password</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Old password</p>
+              </div>
+            </li>
+            <li>
+              <b><code>new_password</code></b>
+                  (<code>str | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>New password</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="gpyg.util.ExecutionError">ExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If operation fails</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def change_password(self, old_password: str | None, new_password: str | None):
+    """Change selected key's password
+
+    Args:
+        old_password (str | None): Old password
+        new_password (str | None): New password
+
+    Raises:
+        ExecutionError: If operation fails
+    """
+    self.interactive.writelines("passwd")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Unknown error")
+
+    self.interactive.writelines(old_password if old_password else "")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        raise ExecutionError("Unknown error")
+
+    self.interactive.writelines(new_password if new_password else "")
+    lines = self.wait_for_status(StatusCodes.GET_LINE, StatusCodes.GET_HIDDEN)
+    if lines[-1].code == StatusCodes.GET_LINE:
+        return
+
+    self.interactive.writelines(new_password if new_password else "")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.clean" class="doc doc-heading">
+          <code class="highlight language-python">clean()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Run the <code>clean</code> command</p>
+
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def clean(self):
+    """Run the `clean` command"""
+    self.interactive.writelines("clean")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.operators.KeyEditor.minimize" class="doc doc-heading">
+          <code class="highlight language-python">minimize()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Run the <code>minimize</code> command</p>
+
+          <details class="quote">
+            <summary>Source code in <code>gpyg/operators/keys.py</code></summary>
+            <pre class="highlight"><code class="language-python">def minimize(self):
+    """Run the `minimize` command"""
+    self.interactive.writelines("minimize")
+    self.wait_for_status(StatusCodes.GET_LINE)</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../gpg-instance/" class="btn btn-neutral float-left" title="GPG Instance"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../messages/" class="btn btn-neutral float-right" title="Message Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../gpg-instance/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../messages/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

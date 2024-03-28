@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>GPG Instance - GPyG Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "GPG Instance";
+        var mkdocs_page_input_path = "api/gpg-instance.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> GPyG Documentation
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Usage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/key_management/">Key Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/message_management/">Message Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/card_management/">Smart Card Management</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">GPG Instance</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#gpyg.GPG">GPG</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.GPG.config">config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.GPG.keys">keys</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.GPG.messages">messages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpyg.GPG.smart_card">smart_card</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Operators</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../operators/keys/">Key Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operators/messages/">Message Operations</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operators/cards/">SmartCard Operations</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Models & Types</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../models/cards/">SmartCard Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models/keys/">Key Types</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models/other/">Other Types</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">GPyG Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+      <li class="breadcrumb-item active">GPG Instance</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="the-gpg-instance">The GPG Instance</h1>
+<p>Provides a central interface to create operators &amp; manage the local GPG setup.</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gpyg.GPG" class="doc doc-heading">
+          <code>GPG</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>Main GPyG class, provides a context within which to perform all operations.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>homedir</code></b>
+                  (<code>str | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Homedir, or the system's default if None. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>kill_existing_agent</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to attempt to kill running GPG agents. Defaults to False.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>write_configs</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to write some best-practice configs to the specified homedir (only if a homedir is specified). Defaults to True.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>gpyg/gpg.py</code></summary>
+              <pre class="highlight"><code class="language-python">class GPG:
+    """Main GPyG class, provides a context within which to perform all operations.
+
+    Args:
+        homedir (str | None, optional): Homedir, or the system's default if None. Defaults to None.
+        kill_existing_agent (bool, optional): Whether to attempt to kill running GPG agents. Defaults to False.
+        write_configs (bool, optional): Whether to write some best-practice configs to the specified homedir (only if a homedir is specified). Defaults to True.
+    """
+
+    def __init__(
+        self,
+        homedir: str | None = None,
+        kill_existing_agent: bool = False,
+        write_configs: bool = True,
+    ) -&gt; None:
+
+        if kill_existing_agent:
+            subprocess.run(["gpgconf", "--kill", "gpg-agent"])
+
+        if write_configs and homedir:
+            with open(os.path.join(homedir, "scdaemon.conf"), "w") as scdc:
+                scdc.write("disable-ccid")
+        self.homedir = homedir
+        self.session = ProcessSession(environment={"GNUPGHOME": homedir} if homedir else None).activate()
+        self._config = None
+
+    @property
+    def config(self) -&gt; GPGConfig:
+        """Gets the current GPG config
+
+        Returns:
+            GPGConfig: Config details
+        """
+        if not self._config:
+            proc = self.session.spawn("gpg --with-colons --list-config")
+            proc.wait()
+            self._config = GPGConfig.from_config_text(proc.output)
+        return self._config
+
+    @property
+    def keys(self) -&gt; KeyOperator:
+        """Creates a KeyOperator for this instance
+
+        Returns:
+            KeyOperator: The KeyOperator
+        """
+        return KeyOperator(self)
+
+    @property
+    def messages(self) -&gt; MessageOperator:
+        """Creates a MessageOperator for this instance
+
+        Returns:
+            MessageOperator: The MessageOperator
+        """
+        return MessageOperator(self)
+
+    @contextmanager
+    def smart_card(self) -&gt; Generator[CardOperator, Any, None]:
+        """Creates a CardOperator with an interactive session attached.
+
+        Yields:
+            CardOperator: An initialized CardOperator
+        """
+        with StatusInteractive(
+            self.session,
+            "gpg --status-fd 1 --command-fd 0 --pinentry-mode loopback --no-tty --card-edit",
+        ) as interactive:
+            interactive.wait_for_status(StatusCodes.GET_LINE)
+            interactive.writelines("admin")
+
+            yield CardOperator(self, interactive)
+            interactive.writelines("quit")</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.GPG.config" class="doc doc-heading">
+          <code class="highlight language-python">config: GPGConfig</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets the current GPG config</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>GPGConfig</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.models.GPGConfig" href="../models/other/#gpyg.GPGConfig">GPGConfig</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>Config details</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.GPG.keys" class="doc doc-heading">
+          <code class="highlight language-python">keys: KeyOperator</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a KeyOperator for this instance</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>KeyOperator</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.KeyOperator" href="../operators/keys/#gpyg.operators.KeyOperator">KeyOperator</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>The KeyOperator</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="gpyg.GPG.messages" class="doc doc-heading">
+          <code class="highlight language-python">messages: MessageOperator</code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a MessageOperator for this instance</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+<b><code>MessageOperator</code></b>(                <code><a class="autorefs autorefs-internal" title="gpyg.operators.MessageOperator" href="../operators/messages/#gpyg.operators.MessageOperator">MessageOperator</a></code>
+)            –
+            <div class="doc-md-description">
+              <p>The MessageOperator</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="gpyg.GPG.smart_card" class="doc doc-heading">
+          <code class="highlight language-python">smart_card()</code>
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a CardOperator with an interactive session attached.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Yields:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b></code>CardOperator</code></b>(                  <code><a class="autorefs autorefs-internal" title="gpyg.operators.CardOperator" href="../operators/cards/#gpyg.operators.CardOperator">CardOperator</a></code>
+)              –
+              <div class="doc-md-description">
+                <p>An initialized CardOperator</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>gpyg/gpg.py</code></summary>
+            <pre class="highlight"><code class="language-python">@contextmanager
+def smart_card(self) -&gt; Generator[CardOperator, Any, None]:
+    """Creates a CardOperator with an interactive session attached.
+
+    Yields:
+        CardOperator: An initialized CardOperator
+    """
+    with StatusInteractive(
+        self.session,
+        "gpg --status-fd 1 --command-fd 0 --pinentry-mode loopback --no-tty --card-edit",
+    ) as interactive:
+        interactive.wait_for_status(StatusCodes.GET_LINE)
+        interactive.writelines("admin")
+
+        yield CardOperator(self, interactive)
+        interactive.writelines("quit")</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../usage/card_management/" class="btn btn-neutral float-left" title="Smart Card Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../operators/keys/" class="btn btn-neutral float-right" title="Key Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../usage/card_management/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../operators/keys/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
